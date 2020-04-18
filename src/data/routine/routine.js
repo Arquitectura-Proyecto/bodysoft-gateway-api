@@ -47,7 +47,7 @@ export const getRoutineByIdOwner=async (idOwner)=>{
 };
 export const updateRoutine=async (idRoutine,routine)=>{
     try {
-        const response = await axios.put(RoutineUris.uriGetRoutineByIdOwner+`${idRoutine}`,routine);
+        const response = await axios.put(RoutineUris.uriUpdateRoutine+`${idRoutine}`,routine);
 
         return response;
     } catch (error) {
@@ -69,7 +69,7 @@ export const getAllRoutines=async ()=>{
 };
 export const getRoutineByIdType=async(idType)=>{
     try {
-        const response = await axios.get(RoutineUris.uriGetRoutineByIdOwner+`${idType}`);
+        const response = await axios.get(RoutineUris.uriGetRoutineByType+`${idType}`);
 
         return response;
     } catch (error) {

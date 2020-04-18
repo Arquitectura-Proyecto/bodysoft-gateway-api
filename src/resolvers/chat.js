@@ -24,19 +24,19 @@ const resolvers = {
     },
     Mutation:{
         async createChatTrainerUser(_,{_id, userId}){
-            const response = await Chat.startTrainerUserChat(_id, userId);
+            const response = await Chat.postTrainerUserChat(_id, userId);
             return response;
         },
         async createChatUserTrainer(_,{_id, trainerId}){
-            const response = await Chat.startUserTrainerChat(_id, trainerId);
+            const response = await Chat.postUserTrainerChat(_id, trainerId);
             return response;
         },
         async createMessageTrainerUser(_,{_id, chatId, message}){
-            const response = await Chat.sendMessageUser(_id, chatId, message);
+            const response = await Chat.postMessageUser(_id, chatId, message);
             return response;
         },
         async createMessageUserTrainer(_,{_id, chatId, message}){
-            const response = await Chat.sendMessageTrainer(_id, chatId, message);
+            const response = await Chat.postMessageTrainer(_id, chatId, message);
             return response;
         }
     }

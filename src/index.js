@@ -1,7 +1,7 @@
 import express, { response } from "express";
 import graphqlHTTP from "express-graphql";
 import schema from "./schema";
-import {startTrainerUserChat,startUserTrainerChat, sendMessageTrainer, sendMessageUser} from "./data/index"
+import {postTrainerUserChat,postUserTrainerChat, postMessageTrainer, postMessageUser} from "./data/index"
 
 const app = express();
 

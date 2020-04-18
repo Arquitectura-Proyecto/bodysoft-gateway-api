@@ -19,7 +19,7 @@ export const getTrainerUserChat = async (trainerId, userId ) => {
     }
 }
 
-export const startTrainerUserChat = async (trainerId, userId) => {
+export const postTrainerUserChat = async (trainerId, userId) => {
     try {
         const response = await axios.post(uriChatTrainer + trainerId, {
             id_user : userId
@@ -30,7 +30,7 @@ export const startTrainerUserChat = async (trainerId, userId) => {
     }
 }
 
-export const sendMessageUser = async (trainerId, chatId, messageContent) => {
+export const postMessageUser = async (trainerId, chatId, messageContent) => {
     try {
         const response = await axios.post(uriChatTrainer  + trainerId + '/' + chatId, {
             message : messageContent
@@ -60,7 +60,7 @@ export const getUserTrainerChat = async (userId, trainerId) => {
     }
 }
 
-export const startUserTrainerChat = async (userId, trainerId) => {
+export const postUserTrainerChat = async (userId, trainerId) => {
     try {
         const response = await axios.post(uriChatUser + '/' + userId, {
             id_trainer : trainerId
@@ -70,7 +70,7 @@ export const startUserTrainerChat = async (userId, trainerId) => {
         console.log(error);
     }
 }
-export const sendMessageTrainer = async (userId, chatId, messageContent) => {
+export const postMessageTrainer = async (userId, chatId, messageContent) => {
     try {
         const response = await axios.post(uriChatUser + userId + '/' + chatId, {
             message : messageContent

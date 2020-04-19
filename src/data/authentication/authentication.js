@@ -1,4 +1,14 @@
-import { authUriCreateUser, authUriGetTypes, authUriRecoverPassword, authUriVerifyAcount, authUriValidateAuthToken , authUriAuthentication, authUriChagePassword} from "./server";
+import { 
+    authUriCreateUser, 
+    authUriGetTypes,
+    authUriAssignProfile,
+    authUriRecoverPassword, 
+    authUriVerifyAcount, 
+    authUriValidateAuthToken, 
+    authUriAuthentication, 
+    authUriChagePassword
+} from "./server";
+
 import axios from "axios";
 
 export const authCreateUser = async (userData) => {
@@ -15,6 +25,17 @@ export const authCreateUser = async (userData) => {
 export const authGetTypes = async () => {
     try {
         const response = await axios.get(authUriGetTypes);
+        console.log(response.data)
+        return response.data;
+    } catch (error) {
+        var err = error.response.status + " " + error.response.data
+        throw new Error(err)
+    }
+}
+
+export const authAssignProfile = async (token) => {
+    try {
+        const response = await axios.get(authUriAssignProfile + "/" + token);
         console.log(response.data)
         return response.data;
     } catch (error) {

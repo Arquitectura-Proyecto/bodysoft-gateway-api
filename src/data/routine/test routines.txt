@@ -1,0 +1,174 @@
+mutation{
+  createRoutine(newRoutine:{
+    price:300.2
+    name:"primer rutina"
+    description:"iniciando"
+    link_preview:"mi link"
+    idType:1
+  },token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiVHlwZUlEIjoxLCJleHAiOjE1ODczMzEzNTF9.r79ld3eJ8eK6QhGudigqPNGQBo2v8CrTxFfY0c48cbg")
+}
+
+query{
+  getRoutineByIdOwner(token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiVHlwZUlEIjoxLCJleHAiOjE1ODczMzEzNTF9.r79ld3eJ8eK6QhGudigqPNGQBo2v8CrTxFfY0c48cbg"){
+    id
+    idOwner
+    rating
+    numRaitings
+    price
+    name
+    description
+    linkPreview
+    type{
+      id
+      name
+    }
+  }
+}
+
+
+mutation{
+  updateRoutine(idRoutine:1,routine:{
+    
+    price:444.3
+    name:"nombre actualizado"
+  	description:"desc"
+    link_preview:"nuevo link"
+    idType:1
+  },token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiVHlwZUlEIjoxLCJleHAiOjE1ODczMzEzNTF9.r79ld3eJ8eK6QhGudigqPNGQBo2v8CrTxFfY0c48cbg")
+}
+
+
+query{
+  getRoutinesByType(idType:1){
+    id
+    idOwner
+    numRaitings
+    name
+  }
+}
+
+query{
+  getAllRoutines{
+    id
+    idOwner
+    name
+    numRaitings
+  }
+}
+
+mutation{
+  registerRequest(registerRequestPOJO:{
+    idRoutine:1
+    
+  },token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MiwiVHlwZUlEIjoyLCJleHAiOjE1ODczMzMwNDN9.TDHmgTA6Mbw91XyQRS8-qfeFIAgO65FV8c9uXpMZFMc")
+}
+
+
+mutation{
+  registerUserRoutine(registerUserRoutinePOJO:{
+    idUser:2
+    idRoutine:1
+    idStatus:1
+  },token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiVHlwZUlEIjoxLCJleHAiOjE1ODczMzEzNTF9.r79ld3eJ8eK6QhGudigqPNGQBo2v8CrTxFfY0c48cbg")
+}
+
+
+
+mutation{
+  rateRoutine(idRoutine:1,raitingRoutinePOJO:{raiting:2.3},token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MiwiVHlwZUlEIjoyLCJleHAiOjE1ODczMzMwNDN9.TDHmgTA6Mbw91XyQRS8-qfeFIAgO65FV8c9uXpMZFMc")
+}
+
+
+
+query{
+  getUserRoutineAvailable(token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MiwiVHlwZUlEIjoyLCJleHAiOjE1ODczMzMwNDN9.TDHmgTA6Mbw91XyQRS8-qfeFIAgO65FV8c9uXpMZFMc"){
+    id
+    idUser
+    routine {
+      id
+    }
+    
+  }
+}
+
+
+query{
+  getUserRoutineByIdUser(token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MiwiVHlwZUlEIjoyLCJleHAiOjE1ODczMzMwNDN9.TDHmgTA6Mbw91XyQRS8-qfeFIAgO65FV8c9uXpMZFMc") {
+    id
+  }
+}
+
+
+mutation{
+  registerResource(idRoutine:1,registerResourcePOJO:{
+    link:"el recursillo"
+    title:"primer recurso"
+    description:"des recurso"
+    position:1
+    idType:1
+  },token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiVHlwZUlEIjoxLCJleHAiOjE1ODczMzEzNTF9.r79ld3eJ8eK6QhGudigqPNGQBo2v8CrTxFfY0c48cbg")
+}
+
+
+mutation{
+  getResourceByIdRoutine(idRoutine:1,token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MiwiVHlwZUlEIjoyLCJleHAiOjE1ODczMzMwNDN9.TDHmgTA6Mbw91XyQRS8-qfeFIAgO65FV8c9uXpMZFMc"){
+    id
+    title
+  }
+}
+
+
+query{
+  getRequestByIdRoutine(idRoutine:1){
+    id
+    routine{
+      id
+    }
+    idUser
+  }
+}
+
+
+mutation{
+  deleteRequest(idRequest:1)
+}
+
+
+
+mutation{
+  updateResource(idResource:1,registerResourcePOJO:{
+    link:"SEGUNDO LINK"
+    title:"SEGUNDO TITULO"
+    description:"SEGUNDA DESCRIPCION"
+    position:1
+    idType:1
+  },token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiVHlwZUlEIjoxLCJleHAiOjE1ODczMzEzNTF9.r79ld3eJ8eK6QhGudigqPNGQBo2v8CrTxFfY0c48cbg")
+}
+
+
+mutation{
+  deleteResource(idResource:1,token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiVHlwZUlEIjoxLCJleHAiOjE1ODczMzEzNTF9.r79ld3eJ8eK6QhGudigqPNGQBo2v8CrTxFfY0c48cbg")
+}
+
+
+query{
+  getAllTypeRoutine{
+    id
+    name
+  }
+}
+
+query{
+  getAllTypeResource{
+    id
+    name
+  }
+}
+
+query{
+getAllStatus{
+  id
+  name
+}
+}
+

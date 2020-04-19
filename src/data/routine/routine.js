@@ -148,9 +148,10 @@ export const updaterResource=async(idResource,resource)=>{
     }
 
 };
-export const deleteResource=async(idResource)=>{
+export const deleteResource=async(idResource,idOwner)=>{
     try{
-        const response = await axios.delete(RoutineUris.uriDeleteResource+`${idResource}`);
+        const response = await axios.delete(RoutineUris.uriDeleteResource+`${idResource}/${idOwner}`);
+
         return response;
 
     }catch (error) {
@@ -158,7 +159,7 @@ export const deleteResource=async(idResource)=>{
     }
 
 };
-export const getRoutinesAvailableByUser=async(idUser)=>{
+export const getUserRoutinesAvailableByUser=async(idUser)=>{
     try{
         const response = await axios.get(RoutineUris.uriGetUserRoutineAvailable+`${idUser}`);
         return response;
@@ -178,7 +179,7 @@ export const registerUserRoutine=async(userRoutine)=>{
     }
 
 };
-export const changeStatusUserRoutinee=async(idRoutine,idUser,idStatus)=>{
+export const changeStatusUserRoutine=async(idRoutine,idUser,idStatus)=>{
     try{
         const response = await axios.put(RoutineUris.uriChangeStatusUserRoutine+`${idRoutine}`,{idUser:idUser,idStatus:idStatus});
         return response;

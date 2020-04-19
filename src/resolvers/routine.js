@@ -22,6 +22,7 @@ import {getUserRoutineByIdUser} from "../data/routine/routine";
 import {getAllStatus} from "../data/routine/routine";
 import {getAllTypeRoutine} from "../data/routine/routine";
 import {getAllTypeResource} from "../data/routine/routine";
+import {changeStatusUserRoutine, createRequest} from "../data";
 const ID_USER=2;
 const ID_TRAINER=1;
 
@@ -104,7 +105,7 @@ const resolvers = {
                 return new Error("No eres usuario");
             }
             raitingRoutinePOJO.idUser=userCredentials.ID;
-            const response =await rateRoutine(idRoutine);
+            const response =await rateRoutine(idRoutine,userCredentials.ID,raitingRoutinePOJO.raiting);
             return ResponseFactory(response);
         },
         async registerRequest(_,{registerRequestPOJO,token}){
@@ -161,7 +162,7 @@ const resolvers = {
             }
             registerUserRoutinePOJO.idOwner=userCredentials.ID;
             const response=await registerUserRoutine(registerUserRoutinePOJO);
-            ResponseFactory(response);
+            return ResponseFactory(response);
         },
         async changeStatusUserRoutine(_,{changeStatusPOJO,idRoutine,token}){
             const userCredentials=await authValidateAuthToken(token);
@@ -170,7 +171,7 @@ const resolvers = {
             }
 
             const response =await changeStatusUserRoutine(idRoutine,userCredentials.ID,changeStatusPOJO.idStatus);
-            ResponseFactory(response);
+            return ResponseFactory(response);
         }
 
     }

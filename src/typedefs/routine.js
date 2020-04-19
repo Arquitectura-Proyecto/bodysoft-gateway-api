@@ -1,14 +1,15 @@
 
 export const queries = `
 getAllRoutines:[Routine]!
-
+getRoutineByIdOwner(idOwner:Int!):[Routine]!
 `
-
+    //
 export const mutations = `
 createRoutine(newRoutine:RegisterRoutinePOJO!):JSON
 `
 
 export const typeDefs =`
+
 type Request{
 id:ID!,
 routine:Routine!,
@@ -34,6 +35,7 @@ description:String!,
 linkPreview:String!,
 type:TypeRoutine!
 }
+
 type Status{
 id:ID!,
 name:String!

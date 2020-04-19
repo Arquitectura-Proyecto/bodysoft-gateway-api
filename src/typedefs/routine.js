@@ -1,11 +1,11 @@
 
 export const queries = `
 getAllRoutines:[Routine]!
-getRoutineByIdOwner(idOwner:Int!):[Routine]!
+getRoutineByIdOwner(token:String!):[Routine]!
 `
     //
 export const mutations = `
-createRoutine(newRoutine:RegisterRoutinePOJO!):JSON
+createRoutine(newRoutine:RegisterRoutinePOJO!,token:String!):JSON
 `
 
 export const typeDefs =`
@@ -57,7 +57,7 @@ qualified:Boolean!
 }
 input RegisterRoutinePOJO{
 
-  idOwner: Int!,
+  
   price: Float!,
   name: String!,
   description: String!,

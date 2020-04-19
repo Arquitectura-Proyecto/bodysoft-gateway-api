@@ -199,3 +199,30 @@ export const getUserRoutineByIdUser=async(idUser)=>{
     }
 
 };
+export const getAllStatus=async ()=>{
+    try{
+        const response = await axios.get(RoutineUris.uriGetAllStatus);
+        return response;
+
+    }catch (error) {
+        return errorManager(error.response.statusCode);
+    }
+};
+export const getAllTypeRoutine=async ()=>{
+    try{
+        const response = await axios.get(RoutineUris.uriGetAllTypeRoutine);
+        return response;
+
+    }catch (error) {
+        return errorManager(error.response.statusCode);
+    }
+};
+export const getAllTypeResource=async()=>{
+    try{
+        const response = await axios.get(RoutineUris.uriGetAllTypeResource);
+        return response;
+
+    }catch (error) {
+        return errorManager(error.response.statusCode);
+    }
+};

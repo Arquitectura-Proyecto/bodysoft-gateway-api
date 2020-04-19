@@ -6,6 +6,9 @@ getRoutinesByType(idType:Int!):[Routine]!
 getRequestByIdRoutine(idRoutine:Int!):[Request]!
 getUserRoutineAvailable(token:String!):[UserRoutine]!
 getUserRoutineByIdUser(token:String!):[UserRoutine]!
+getAllStatus:[Status]!
+getAllTypeRoutine:[TypeRoutine]!
+getAllTypeResource:[TypeResource]!
 `
     //
 export const mutations = `

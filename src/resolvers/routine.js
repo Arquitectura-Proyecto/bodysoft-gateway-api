@@ -19,6 +19,9 @@ import {getUserRoutinesAvailableByUser} from "../data/routine/routine";
 import {registerUserRoutine} from "../data/routine/routine";
 import {changeStatusUserRoutinee} from "../data/routine/routine";
 import {getUserRoutineByIdUser} from "../data/routine/routine";
+import {getAllStatus} from "../data/routine/routine";
+import {getAllTypeRoutine} from "../data/routine/routine";
+import {getAllTypeResource} from "../data/routine/routine";
 const ID_USER=2;
 const ID_TRAINER=1;
 
@@ -59,6 +62,18 @@ const resolvers = {
                 return new Error("No eres usuario");
             }
             const response =await getUserRoutineByIdUser(userCredentials.ID);
+            return response.data;
+        },
+        async getAllStatus(){
+            const response=await getAllStatus();
+            return response.data;
+        },
+        async getAllTypeRoutine(){
+            const response=await getAllTypeRoutine();
+            return response.data;
+        },
+        async getAllTypeResource(){
+            const response=await getAllTypeResource();
             return response.data;
         }
 

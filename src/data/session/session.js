@@ -9,7 +9,7 @@ CREATE
 export const registerSchedule = async (schedule) => {
     try {
         const response = await axios.post(uriSession + '/schedule/create',schedule);
-        return response.data;
+        return response.status;
     } catch (error) {
         console.error(error);
     }
@@ -24,7 +24,7 @@ DELETE
 export const deleteSchedule = async (ChageState) => {
     try {
         const response = await axios.delete(uriSession + '/schedule/delete',{ data: ChageState});
-        return response.data;
+        return response.status;
     } catch (error) {
         console.error(error);
     }
@@ -36,7 +36,7 @@ PUT
 export const setAdate = async (ChageState) => {
     try {
         const response = await axios.put(uriSession + '/set-a-date',ChageState);
-        return response.data;
+        return response.status;
     } catch (error) {
         console.error(error);
     }
@@ -45,17 +45,17 @@ export const setAdate = async (ChageState) => {
 export const calcelUser = async (ChageState) => {
     try {
         const response = await axios.put(uriSession + '/cancel/user',ChageState);
-        return response.data;
+        return response.status;
     } catch (error) {
         console.error(error);
-        throw new error( error.response.status+" "+ error.response.statusCode );
+        console.error( error.response.status+" "+ error.response.statusCode );
     }
 }
 
 export const calcelCoach = async (ChageState) => {
     try {
         const response = await axios.put(uriSession + '/cancel/coach',ChageState);
-        return response.data;
+        return response.status;
     } catch (error) {
         console.error(error);
     }

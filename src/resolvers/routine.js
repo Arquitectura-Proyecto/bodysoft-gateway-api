@@ -15,7 +15,7 @@ const resolvers = {
     Mutation:{
         async createRoutine(_,{newRoutine}){
             const response =await createRoutine(newRoutine);
-            var r={status:response.status,
+            let r={status:response.status,
             data:response.data}
             return r ;
         }

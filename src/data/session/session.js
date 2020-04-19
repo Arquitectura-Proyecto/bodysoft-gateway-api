@@ -48,6 +48,7 @@ export const calcelUser = async (ChageState) => {
         return response.data;
     } catch (error) {
         console.error(error);
+        throw new error( error.response.status+" "+ error.response.statusCode );
     }
 }
 

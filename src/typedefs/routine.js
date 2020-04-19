@@ -2,10 +2,14 @@
 export const queries = `
 getAllRoutines:[Routine]!
 getRoutineByIdOwner(token:String!):[Routine]!
+getRoutinesByType(idType:Int!):[Routine]!
 `
     //
 export const mutations = `
 createRoutine(newRoutine:RegisterRoutinePOJO!,token:String!):JSON
+updateRoutine(idRoutine:Int!,routine:RegisterRoutinePOJO!,token:String!):JSON
+rateRoutine(idRoutine:Int!,raitingRoutinePOJO:RaitingRoutinePOJO!,token:String!):JSON
+registerRequest(registerRequestPOJO:RegisterRequestPOJO!,token:String!):JSON
 `
 
 export const typeDefs =`
@@ -64,5 +68,11 @@ input RegisterRoutinePOJO{
   link_preview: String!,
   idType: Int!
 
+}
+input RaitingRoutinePOJO{
+raiting:Float!
+}
+input RegisterRequestPOJO{
+idRoutine:Int!
 }
 `

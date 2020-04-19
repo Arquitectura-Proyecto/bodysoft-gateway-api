@@ -1,8 +1,11 @@
+
 export const queries = `
 getAllRoutines:[Routine]!
+
 `
 
 export const mutations = `
+createRoutine(newRoutine:RegisterRoutinePOJO!):JSON
 `
 
 export const typeDefs =`
@@ -50,5 +53,14 @@ routine:Routine!,
 status:Status!,
 qualified:Boolean!
 }
+input RegisterRoutinePOJO{
 
+  idOwner: Int!,
+  price: Float!,
+  name: String!,
+  description: String!,
+  link_preview: String!,
+  idType: Int!
+
+}
 `

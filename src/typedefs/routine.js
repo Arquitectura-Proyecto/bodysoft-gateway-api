@@ -3,6 +3,7 @@ export const queries = `
 getAllRoutines:[Routine]!
 getRoutineByIdOwner(token:String!):[Routine]!
 getRoutinesByType(idType:Int!):[Routine]!
+getRequestByIdRoutine(idRoutine:Int!):[Request]!
 `
     //
 export const mutations = `
@@ -10,6 +11,8 @@ createRoutine(newRoutine:RegisterRoutinePOJO!,token:String!):JSON
 updateRoutine(idRoutine:Int!,routine:RegisterRoutinePOJO!,token:String!):JSON
 rateRoutine(idRoutine:Int!,raitingRoutinePOJO:RaitingRoutinePOJO!,token:String!):JSON
 registerRequest(registerRequestPOJO:RegisterRequestPOJO!,token:String!):JSON
+deleteRequest(idRequest:Int!):JSON
+
 `
 
 export const typeDefs =`

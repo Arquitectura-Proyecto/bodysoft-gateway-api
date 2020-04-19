@@ -8,6 +8,8 @@ import {authValidateAuthToken} from "../data/authentication/authentication";
 import {updateRoutine} from "../data/routine/routine";
 import {getRoutineByIdType} from "../data/routine/routine";
 import {rateRoutine} from "../data/routine/routine";
+import {deleteRequest} from "../data/routine/routine";
+import {getRequestsByIdRoutine} from "../data/routine/routine";
 const ID_USER=2;
 const ID_TRAINER=1;
 
@@ -28,6 +30,10 @@ const resolvers = {
         },
         async getRoutinesByType(_,{idType}){
             const response =await getRoutineByIdType(idType);
+            return response.data;
+        },
+        async getRequestByIdRoutine(_,{idRoutine}){
+            const response =await getRequestsByIdRoutine(idRoutine);
             return response.data;
         }
 
@@ -69,7 +75,12 @@ const resolvers = {
             registerRequestPOJO.idUser=userCredentials.ID;
             const response=await createRequest(registerRequestPOJO.idRoutine,registerRequestPOJO.idUser)
             return ResponseFactory(response);
+        },
+        async deleteRequest(_,{idRequest}){
+            const response =await deleteRequest(idRequest);
+            return ResponseFactory(response);
         }
+
     }
 };
 const ResponseFactory=(response)=>{

@@ -1,5 +1,5 @@
 import { registerSchedule, deleteSchedule,setAdate,calcelUser,calcelCoach} from "../data/index";
-import {getAllbyIdCoach,getAllbyIdUser,getAllbyCoachCurrent,getAllbyUserCurrent,getbyIdSchedule}from "../data/index";
+import {getAllbyIdCoach,getAllbyIdUser,getAllbyCoachCurrent,getAllbyUserCurrent,getbyIdSchedule,getAllbyCoachAvaible}from "../data/index";
 import {authValidateAuthToken} from "../data/index";
 const resolvers = {
     Query:{
@@ -35,7 +35,15 @@ const resolvers = {
                 
                 return response;
             
-        }
+        },
+        async getAllbyCoachAvaibles(_,{User,coach}){
+            
+            const validate = await authValidateAuthToken(User);
+            const response = await getAllbyCoachAvaible(coach);
+            
+            return response;
+        
+    }
     },
     Mutation:{
         async registerSchedules(_,{schedule}){
@@ -47,7 +55,7 @@ const resolvers = {
                     "iniTime": schedule.iniTime,
                     "endTime": schedule.endTime,  
                 }
-                const response = await registerSchedule(schedule);
+                const response = await registerSchedule(schedule,validate.TypeID);
                 
                 return response;
              
@@ -62,7 +70,7 @@ const resolvers = {
                     "schedule": ChangeStatus.schedule
                     
                 }
-                const response = await deleteSchedule(ChangeStatus);
+                const response = await deleteSchedule(ChangeStatus,validate.TypeID);
                 
                 return response;
             
@@ -76,7 +84,7 @@ const resolvers = {
                     "schedule": ChangeStatus.schedule
                     
                 }
-                const response = await setAdate(ChangeStatus);
+                const response = await setAdate(ChangeStatus,validate.TypeID);
                 
                 return response;
             

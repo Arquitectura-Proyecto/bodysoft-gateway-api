@@ -2,61 +2,47 @@ import { uriSession } from "./server";
 import axios from "axios";
 
 
-const METHOD_NOT_ALLOWED=405;
+const FORBIDDEN=403;
 const BAD_REQUEST=400;
 const CONFLICT=409;
-const NOT_ACCEPTABLE=406;
 const INTERNAL_ERROR = 500;
 const errorManager=(statusCode)=>{
     switch (statusCode) {
-        case METHOD_NOT_ALLOWED:
-            return METHOD_NOT_ALLOWED + " No autorizado para hacer ejecutar esta petición";
+        case FORBIDDEN:
+            return FORBIDDEN + " No autorizado para hacer ejecutar esta petición";
             break;
         case BAD_REQUEST:
-            return BAD_REQUEST + " Falta algun campo";
+            return BAD_REQUEST + " Falta algun campo o los campos no son validos";
             break;
         case CONFLICT:
             return CONFLICT + " Se entró en conflico con la base de datos";
-            break;
-        case NOT_ACCEPTABLE:
-            return NOT_ACCEPTABLE + " Se ha superadó el tiempo permitido para hacer esta peticion";
             break;
         case INTERNAL_ERROR:
             return INTERNAL_ERROR + " Error interno";
             break;
         default:
-            return CONFLICT + " Se entró en conflico con la base de datos";
+            return CONFLICT + " Error no identificado";
     }
 
 }
 
 const IsDateright=(date)=>{
-    correct = true;
-    year = date.substring(0,4);
-    month = date.substring(5,7);
-    day = date.substring(8);
-
-    if(isNaN(date)|| isNaN(month) || isNaN(day)){
-        correct = false;
-    }
-    if(date.charAt(4)!="-"  || date.charAt(7)!="-"){
-        correct = false;
+    let correct = /^(20[0-9][0-9])-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])?$/.test(date); 
+    if(correct){
+        const month = date.substring(5,7)
+        if(/^(04|06|09|11)?$/.test(month)){
+            correct = /^(20[0-9][0-9])-(0[0-9]|1[0-2])-([0-2][0-9]|30)?$/.test(date); 
+        }
+        if (month==="02"){
+            correct = /^(20[0-9][0-9])-(0[0-9]|1[0-2])-([0-2][0-8])?$/.test(date); 
+        }
     }
     return correct;
 }
 
-const IsTimeright=(date)=>{
-    correct = true;
-    hour = date.substring(0,3);
-    min = date.substring(4,6);
-    sec = date.substring(7);
 
-    if(isNaN(hour)|| isNaN(min) || isNaN(sec)){
-        correct = false;
-    }
-    if(date.charAt(3)!=":"  || date.charAt(6)!=":"){
-        correct = false;
-    }
+const IsTimeright=(time)=>{
+    const correct = /^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])?$/.test(time); 
     return correct;
 }
 
@@ -69,15 +55,24 @@ export const registerSchedule = async (schedule, Type) => {
     try {
 
         if(Type===2){
-            err = errorManager(METHOD_NOT_ALLOWED);
-            throw new Error(err)
+            const err = errorManager(FORBIDDEN);
+            throw new Error(err);
         }
-        
+        if(!IsDateright(schedule.daySession)|| 
+            !IsTimeright(schedule.iniTime)|| !IsTimeright(schedule.endTime)){
+                
+            const err = errorManager(BAD_REQUEST);
+            throw new Error(err);
+        }
         const response = await axios.post(uriSession + '/schedule/create',schedule);
         return response.status;
     } catch (error) {
-        err = errorManager(error.response.status);
-        throw new Error(err)
+        if(error.response!=null){
+            const err = errorManager(error.response.status);
+            throw new Error(err);
+        } else{
+            throw error;
+        }
     }
 }
 
@@ -87,36 +82,45 @@ export const registerSchedule = async (schedule, Type) => {
 DELETE
 */
 
-export const deleteSchedule = async (ChageState) => {
+export const deleteSchedule = async (ChageState, Type) => {
     try {
+        
         if(Type===2){
-            err = errorManager(METHOD_NOT_ALLOWED);
-            throw new Error(err)
+            const err = errorManager(FORBIDDEN);
+            throw new Error(err);
         }
 
         const response = await axios.delete(uriSession + '/schedule/delete',{ data: ChageState});
         return response.status;
     } catch (error) {
-        err = errorManager(error.response.status);
-        throw new Error(err)
+        if(error.response!=null){
+            const err = errorManager(error.response.status);
+            throw new Error(err);
+        } else{
+            throw error;
+        }
     }
 }
 
 /*
 PUT
 */
-export const setAdate = async (ChageState) => {
+export const setAdate = async (ChageState, Type) => {
     try {
         if(Type===1){
-            err = errorManager(METHOD_NOT_ALLOWED);
-            throw new Error(err)
+            const err = errorManager(FORBIDDEN);
+            throw new Error(err);
         }
 
         const response = await axios.put(uriSession + '/set-a-date',ChageState);
         return response.status;
     } catch (error) {
-        err = errorManager(error.response.status);
-        throw new Error(err)
+        if(error.response!=null){
+            const err = errorManager(error.response.status);
+            throw new Error(err);
+        } else{
+            throw error;
+        }
     }
 }
 
@@ -125,8 +129,8 @@ export const calcelUser = async (ChageState) => {
         const response = await axios.put(uriSession + '/cancel/user',ChageState);
         return response.status;
     } catch (error) {
-        err = errorManager(error.response.status)
-        throw new Error(err)
+        const err = errorManager(error.response.status)
+        throw new Error(err);
     }
 }
 
@@ -135,8 +139,8 @@ export const calcelCoach = async (ChageState) => {
         const response = await axios.put(uriSession + '/cancel/coach',ChageState);
         return response.status;
     } catch (error) {
-        err = errorManager(error.response.status)
-        throw new Error(err)
+        const err = errorManager(error.response.status)
+        throw new Error(err);
     }
 }
 
@@ -148,8 +152,8 @@ export const getAllbyIdCoach = async (idCoach) => {
         const response = await axios.get(uriSession + '/get-by-idCoach/' + idCoach);
         return response.data;
     } catch (error) {
-        err = errorManager(error.response.status);
-        throw new Error(err)
+        const err = errorManager(error.response.status);
+        throw new Error(err);
     }
 }
 export const getAllbyCoachCurrent = async (idCoach) => {
@@ -157,8 +161,17 @@ export const getAllbyCoachCurrent = async (idCoach) => {
         const response = await axios.get(uriSession + '/get-by-idCoach/Current/' + idCoach);
         return response.data;
     } catch (error) {
-        err = errorManager(error.response.status);
-        throw new Error(err)
+        const err = errorManager(error.response.status);
+        throw new Error(err);
+    }
+}
+export const getAllbyCoachAvaible = async (idCoach) => {
+    try {
+        const response = await axios.get(uriSession + '/get-by-idCoach/Avaible/' + idCoach);
+        return response.data;
+    } catch (error) {
+        const err = errorManager(error.response.status);
+        throw new Error(err);
     }
 }
 
@@ -167,8 +180,8 @@ export const getAllbyIdUser = async (idUser) => {
         const response = await axios.get(uriSession + '/get-by-idUser/' + idUser);
         return response.data;
     } catch (error) {
-        err = errorManager(error.response.status);
-        throw new Error(err)
+        const err = errorManager(error.response.status);
+        throw new Error(err);
     }
 }
 export const getAllbyUserCurrent = async (idUser) => {
@@ -176,8 +189,8 @@ export const getAllbyUserCurrent = async (idUser) => {
         const response = await axios.get(uriSession + '/get-by-idUser/Current/' + idUser);
         return response.data;
     } catch (error) {
-        err = errorManager(error.response.status);
-        throw new Error(err)
+        const err = errorManager(error.response.status);
+        throw new Error(err);
     }
 }
 export const getbyIdSchedule = async (idUser) => {
@@ -185,8 +198,9 @@ export const getbyIdSchedule = async (idUser) => {
         const response = await axios.get(uriSession + '/get-by-idSchedule/' + idUser);
         return response.data;
     } catch (error) {
-        err = errorManager(error.response.status);
-        throw new Error(err)
+        const err = errorManager(error.response.status);
+        throw new Error(err);
         
     }
 }
+

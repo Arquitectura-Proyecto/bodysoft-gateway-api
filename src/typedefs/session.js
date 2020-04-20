@@ -2,6 +2,7 @@ export const queries = `
 getAllbyId(Token:String!):[Schudele]
 getCurrentbyId(Token:String!):[Schudele]
 getbyIdSchedules(User:String!, schedule: Int!):Schudele
+getAllbyCoachAvaibles(User:String!, coach: Int!):[Schudele]
 `
 
 export const mutations = `

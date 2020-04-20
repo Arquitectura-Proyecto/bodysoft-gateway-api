@@ -6,7 +6,7 @@ services:
         build: .
         environment: 
             PORT: '4000'
-            CHAT_HOST: 'http://3.89.152.158:4500'
+            CHAT_HOST: 'http://host.docker.internal:4500'
             PROFILE_HOST: 'http://3.89.152.158:4500'
             AUTHENTICATION_HOST: 'http://3.89.152.158:4500'
             ROUTINE_HOST: 'http://3.89.152.158:4500'

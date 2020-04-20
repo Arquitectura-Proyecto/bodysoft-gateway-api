@@ -24,6 +24,6 @@ type Mutation{
 }
 `
 
-const typeDefs = [typeQuery, typeMutation, typeDefsChat, typeDefsAuthentication, typeDefsProfile, typeDefsRoutine, typeDefsSession,'scalar JSON']
+const typeDefs = [typeQuery, typeMutation, typeDefsChat, typeDefsAuthentication, typeDefsProfile, typeDefsRoutine, typeDefsSession]
 
 export default typeDefs;

@@ -12,17 +12,17 @@ getAllTypeResource:[TypeResource]!
 `
     //
 export const mutations = `
-createRoutine(newRoutine:RegisterRoutinePOJO!,token:String!):JSON
-updateRoutine(idRoutine:Int!,routine:RegisterRoutinePOJO!,token:String!):JSON
-rateRoutine(idRoutine:Int!,raitingRoutinePOJO:RaitingRoutinePOJO!,token:String!):JSON
-registerRequest(registerRequestPOJO:RegisterRequestPOJO!,token:String!):JSON
-deleteRequest(idRequest:Int!):JSON
-registerResource(idRoutine:Int!,registerResourcePOJO:RegisterResourcePOJO!,token:String!):JSON
+createRoutine(newRoutine:RegisterRoutinePOJO!,token:String!):String
+updateRoutine(idRoutine:Int!,routine:RegisterRoutinePOJO!,token:String!):String
+rateRoutine(idRoutine:Int!,raitingRoutinePOJO:RaitingRoutinePOJO!,token:String!):String
+registerRequest(registerRequestPOJO:RegisterRequestPOJO!,token:String!):String
+deleteRequest(idRequest:Int!):String
+registerResource(idRoutine:Int!,registerResourcePOJO:RegisterResourcePOJO!,token:String!):String
 getResourceByIdRoutine(idRoutine:Int!,token:String!):[Resource]!
-updateResource(idResource:Int!,registerResourcePOJO:RegisterResourcePOJO!,token:String!):JSON
-deleteResource(idResource:Int!,token:String!):JSON
-registerUserRoutine(registerUserRoutinePOJO:RegisterUserRoutinePOJO!,token:String!):JSON
-changeStatusUserRoutine(changeStatusPOJO:ChangeStatusPOJO!,idRoutine:Int!,token:String!):JSON
+updateResource(idResource:Int!,registerResourcePOJO:RegisterResourcePOJO!,token:String!):String
+deleteResource(idResource:Int!,token:String!):String
+registerUserRoutine(registerUserRoutinePOJO:RegisterUserRoutinePOJO!,token:String!):String
+changeStatusUserRoutine(changeStatusPOJO:ChangeStatusPOJO!,idRoutine:Int!,token:String!):String
 `
 
 export const typeDefs =`

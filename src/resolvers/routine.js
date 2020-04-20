@@ -182,8 +182,8 @@ const resolvers = {
     }
 };
 const ResponseFactory=(response)=>{
-    let r=response.status
-        return r;
-}
+
+        return response.status;
+};
 
 export default resolvers;

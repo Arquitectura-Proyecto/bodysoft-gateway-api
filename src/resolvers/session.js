@@ -1,22 +1,51 @@
 import { registerSchedule, deleteSchedule,setAdate,calcelUser,calcelCoach} from "../data/index";
-import {getAllbyIdCoach}from "../data/index";
+import {getAllbyIdCoach,getAllbyIdUser,getAllbyCoachCurrent,getAllbyUserCurrent,getbyIdSchedule}from "../data/index";
 import {authValidateAuthToken} from "../data/index";
 const resolvers = {
     Query:{
         async getAllbyIdCoachs(_,{Coach}){
-            try {
+            
                 const validate = await authValidateAuthToken(Coach);
                 const response = await getAllbyIdCoach(validate.ID);
                 
                 return response;
-            } catch (error) {
-                console.error(error)
-            }
+        },
+        async getAllbyIdUsers(_,{User}){
+            
+                const validate = await authValidateAuthToken(User);
+                const response = await getAllbyIdUser(validate.ID);
+                
+                return response;
+            
+        },
+        async getCurrentbyIdCoachs(_,{Coach,User}){
+            
+                const validate = await authValidateAuthToken(User);
+                const response = await getAllbyCoachCurrent(Coach);
+                
+                return response;
+            
+        },
+        async getCurrentbyIdUsers(_,{User}){
+            
+                const validate = await authValidateAuthToken(User);
+                const response = await getAllbyUserCurrent(validate.ID);
+                
+                return response;
+            
+        },
+        async getbyIdSchedules(_,{User,schedule}){
+            
+                const validate = await authValidateAuthToken(User);
+                const response = await getbyIdSchedule(schedule);
+                
+                return response;
+            
         }
     },
     Mutation:{
         async registerSchedules(_,{schedule}){
-            try {
+           
                 const validate = await authValidateAuthToken(schedule.token);
                 schedule ={
                     "idCoach": validate.ID,
@@ -27,14 +56,12 @@ const resolvers = {
                 const response = await registerSchedule(schedule);
                 
                 return response;
-            } catch (error) {
-                console.error(error)
-            }
+             
             
         },
 
         async deleteSchedules(_,{ChangeStatus}){
-            try {
+            
                 const validate = await authValidateAuthToken(ChangeStatus.token);
                 ChangeStatus ={
                     "person": validate.ID,
@@ -44,13 +71,11 @@ const resolvers = {
                 const response = await deleteSchedule(ChangeStatus);
                 
                 return response;
-            } catch (error) {
-                console.error(error)
-            }
+            
             
         },
         async setAdates(_,{ChangeStatus}){
-            try {
+            
                 const validate = await authValidateAuthToken(ChangeStatus.token);
                 ChangeStatus ={
                     "person": validate.ID,
@@ -60,13 +85,11 @@ const resolvers = {
                 const response = await setAdate(ChangeStatus);
                 
                 return response;
-            } catch (error) {
-                console.error(error)
-            }
+            
             
         },
         async CancelADate(_,{ChangeStatus}){
-            try {
+            
                 const validate = await authValidateAuthToken(ChangeStatus.token);
                 ChangeStatus ={
                     "person": validate.ID,
@@ -82,9 +105,7 @@ const resolvers = {
                     return response;
                 }
                 
-            } catch (error) {
-                console.error(error)
-            }
+        
             
         }
         

@@ -3,35 +3,29 @@ import {getAllbyIdCoach,getAllbyIdUser,getAllbyCoachCurrent,getAllbyUserCurrent,
 import {authValidateAuthToken} from "../data/index";
 const resolvers = {
     Query:{
-        async getAllbyIdCoachs(_,{Coach}){
+        async getAllbyId(_,{Token}){
             
-                const validate = await authValidateAuthToken(Coach);
-                const response = await getAllbyIdCoach(validate.ID);
-                
-                return response;
+                const validate = await authValidateAuthToken(Token);
+                if(validate.TypeID===1){
+                    const response = await getAllbyIdCoach(validate.ID);
+                    return response;
+                }
+                else{
+                    const response = await getAllbyIdUser(validate.ID);
+                    return response;
+                }
         },
-        async getAllbyIdUsers(_,{User}){
+        async getCurrentbyId(_,{Token}){
             
-                const validate = await authValidateAuthToken(User);
-                const response = await getAllbyIdUser(validate.ID);
-                
-                return response;
-            
-        },
-        async getCurrentbyIdCoachs(_,{Coach,User}){
-            
-                const validate = await authValidateAuthToken(User);
-                const response = await getAllbyCoachCurrent(Coach);
-                
-                return response;
-            
-        },
-        async getCurrentbyIdUsers(_,{User}){
-            
-                const validate = await authValidateAuthToken(User);
-                const response = await getAllbyUserCurrent(validate.ID);
-                
-                return response;
+                const validate = await authValidateAuthToken(Token);
+                if(validate.TypeID===1){
+                    const response = await getAllbyCoachCurrent(validate.ID);
+                    return response;
+                }
+                else{
+                    const response = await getAllbyUserCurrent(validate.ID);
+                    return response;
+                }
             
         },
         async getbyIdSchedules(_,{User,schedule}){
@@ -103,9 +97,7 @@ const resolvers = {
                 else{
                     const response = await calcelUser(ChangeStatus);   
                     return response;
-                }
-                
-        
+                }      
             
         }
         

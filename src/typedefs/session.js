@@ -1,8 +1,6 @@
 export const queries = `
-getAllbyIdCoachs(Coach:String!):[Schudele]
-getAllbyIdUsers(User:String!):[Schudele]
-getCurrentbyIdCoachs(Coach:Int!, User:String!):[Schudele]
-getCurrentbyIdUsers(User:String!):[Schudele]
+getAllbyId(Token:String!):[Schudele]
+getCurrentbyId(Token:String!):[Schudele]
 getbyIdSchedules(User:String!, schedule: Int!):Schudele
 `
 

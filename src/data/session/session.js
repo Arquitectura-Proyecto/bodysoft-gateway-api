@@ -30,6 +30,36 @@ const errorManager=(statusCode)=>{
 
 }
 
+const IsDateright=(date)=>{
+    correct = true;
+    year = date.substring(0,4);
+    month = date.substring(5,7);
+    day = date.substring(8);
+
+    if(isNaN(date)|| isNaN(month) || isNaN(day)){
+        correct = false;
+    }
+    if(date.charAt(4)!="-"  || date.charAt(7)!="-"){
+        correct = false;
+    }
+    return correct;
+}
+
+const IsTimeright=(date)=>{
+    correct = true;
+    hour = date.substring(0,3);
+    min = date.substring(4,6);
+    sec = date.substring(7);
+
+    if(isNaN(hour)|| isNaN(min) || isNaN(sec)){
+        correct = false;
+    }
+    if(date.charAt(3)!=":"  || date.charAt(6)!=":"){
+        correct = false;
+    }
+    return correct;
+}
+
 
 /*
 CREATE
@@ -81,6 +111,7 @@ export const setAdate = async (ChageState) => {
             err = errorManager(METHOD_NOT_ALLOWED);
             throw new Error(err)
         }
+
         const response = await axios.put(uriSession + '/set-a-date',ChageState);
         return response.status;
     } catch (error) {
@@ -117,7 +148,7 @@ export const getAllbyIdCoach = async (idCoach) => {
         const response = await axios.get(uriSession + '/get-by-idCoach/' + idCoach);
         return response.data;
     } catch (error) {
-        err = errorManager(error.response.status)
+        err = errorManager(error.response.status);
         throw new Error(err)
     }
 }
@@ -126,7 +157,7 @@ export const getAllbyCoachCurrent = async (idCoach) => {
         const response = await axios.get(uriSession + '/get-by-idCoach/Current/' + idCoach);
         return response.data;
     } catch (error) {
-        err = errorManager(error.response.status)
+        err = errorManager(error.response.status);
         throw new Error(err)
     }
 }
@@ -136,7 +167,7 @@ export const getAllbyIdUser = async (idUser) => {
         const response = await axios.get(uriSession + '/get-by-idUser/' + idUser);
         return response.data;
     } catch (error) {
-        err = errorManager(error.response.status)
+        err = errorManager(error.response.status);
         throw new Error(err)
     }
 }
@@ -145,7 +176,7 @@ export const getAllbyUserCurrent = async (idUser) => {
         const response = await axios.get(uriSession + '/get-by-idUser/Current/' + idUser);
         return response.data;
     } catch (error) {
-        err = errorManager(error.response.status)
+        err = errorManager(error.response.status);
         throw new Error(err)
     }
 }
@@ -154,7 +185,7 @@ export const getbyIdSchedule = async (idUser) => {
         const response = await axios.get(uriSession + '/get-by-idSchedule/' + idUser);
         return response.data;
     } catch (error) {
-        err = errorManager(error.response.status)
+        err = errorManager(error.response.status);
         throw new Error(err)
         
     }

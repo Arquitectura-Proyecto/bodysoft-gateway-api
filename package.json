@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel src -d deploy --source-maps",
+    "build": "npm run clean && babel src -d deploy --source-maps",
     "start": "nodemon src/index.js --exec babel-node",
-    "deploy": "node deploy/index.js"
+    "deploy": "node deploy/index.js",
+    "clean": "rimraf deploy"
   },
   "repository": {
     "type": "git",
@@ -24,12 +25,14 @@
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
     "graphql": "^15.0.0",
-    "graphql-tools": "^5.0.0"
+    "graphql-tools": "^5.0.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "nodemon": "^2.0.3"
   }

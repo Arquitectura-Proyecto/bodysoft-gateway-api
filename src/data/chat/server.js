@@ -1,3 +1,5 @@
 
-export const uriChatUser = "http://localhost:3000/api/user/"
-export const uriChatTrainer = "http://localhost:3000/api/trainer/"
+const uri =  process.env.CHAT_HOST || "localhost:4500"
+
+export const uriChatUser = uri+"/api/user/"
+export const uriChatTrainer = uri+"/api/trainer/"

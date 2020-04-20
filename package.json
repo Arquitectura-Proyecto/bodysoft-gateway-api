@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean && babel src -d deploy --source-maps",
+    "build": "rimraf deploy && babel src -d deploy --source-maps",
     "start": "nodemon src/index.js --exec babel-node",
-    "deploy": "node deploy/index.js",
-    "clean": "rimraf deploy"
+    "deploy": "node deploy/index.js"
   },
   "repository": {
     "type": "git",

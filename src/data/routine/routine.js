@@ -5,22 +5,23 @@ const BAD_REQUEST=400;
 const CONFLICT=409;
 const UNAUTHORIZED_MESSAGE="NO TE ENCUENTRAS AUTORIZADO PARA REALIZAR LA OPERACION";
 const BAD_REQUEST_MESSAGE="DEBES LLENAR TODOS LOS CAMPOS";
-const CONFLICT_MESSAGE="HUBO UN PROBLEMA INTENTALO DE NUEVO";
-const UNAUTHORIZED_RESPONSE={message:UNAUTHORIZED_MESSAGE,status:UNAUTHORIZED};
-const BAD_REQUEST_RESPONSE={message:BAD_REQUEST_MESSAGE,status:BAD_REQUEST};
-const CONFLICT_RESPONSE={message:CONFLICT_MESSAGE,status:CONFLICT};
+const CONFLICT_MESSAGE="LA PETICION REALIZADA TIENE INCONSISTENCIAS, INTENTALO DE NUEVO";
+const UNAUTHORIZED_ERROR=new Error(UNAUTHORIZED+" "+UNAUTHORIZED_MESSAGE);
+const BAD_REQUEST_ERROR=new Error(BAD_REQUEST+" "+BAD_REQUEST_MESSAGE);
+const CONFLICT_ERROR=new Error(CONFLICT+" "+CONFLICT_MESSAGE);
 const errorManager=(statusCode)=>{
     switch (statusCode) {
         case UNAUTHORIZED:
-            return UNAUTHORIZED_RESPONSE;
+            return UNAUTHORIZED_ERROR;
             break;
         case BAD_REQUEST:
-            return BAD_REQUEST_RESPONSE;
+            return BAD_REQUEST_ERROR;
             break;
         case CONFLICT:
-            return CONFLICT_RESPONSE;
+            return CONFLICT_ERROR;
+            break;
         default:
-            return CONFLICT_RESPONSE;
+            return new Error(statusCode+ "ERROR NO IDENTIFICADO");
     }
 
 }
@@ -31,7 +32,7 @@ export const createRoutine = async (newRoutine) => {
         return response;
     } catch (error) {
 
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
 
     }
 };
@@ -42,7 +43,7 @@ export const getRoutineByIdOwner=async (idOwner)=>{
         return response;
     } catch (error) {
 
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 };
 export const updateRoutine=async (idRoutine,routine)=>{
@@ -52,7 +53,7 @@ export const updateRoutine=async (idRoutine,routine)=>{
         return response;
     } catch (error) {
 
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 
 
@@ -64,7 +65,7 @@ export const getAllRoutines=async ()=>{
         return response;
     } catch (error) {
 
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 };
 export const getRoutineByIdType=async(idType)=>{
@@ -74,7 +75,7 @@ export const getRoutineByIdType=async(idType)=>{
         return response;
     } catch (error) {
 
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 };
 export const rateRoutine=async(idRoutine, idUser,raiting)=>{
@@ -84,7 +85,7 @@ export const rateRoutine=async(idRoutine, idUser,raiting)=>{
         return response;
     } catch (error) {
 
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 };
 export const createRequest=async(idRoutine,idUser)=>{
@@ -93,7 +94,7 @@ export const createRequest=async(idRoutine,idUser)=>{
         return response;
 
     }catch(error){
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 };
 export const deleteRequest=async(idRequest)=>{
@@ -102,7 +103,7 @@ export const deleteRequest=async(idRequest)=>{
         return response;
 
     }catch (error) {
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 
 };
@@ -113,7 +114,7 @@ export const getRequestsByIdRoutine=async(idRoutine)=>{
         return response;
 
     }catch (error) {
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 
 };
@@ -123,7 +124,7 @@ export const registerResource=async(idRoutine,resource)=>{
         return response;
 
     }catch (error) {
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 
 };
@@ -134,7 +135,7 @@ export const getResourcesByIdRoutine=async(idRoutine,idRequester)=>{
         return response;
 
     }catch (error) {
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 
 };
@@ -144,27 +145,28 @@ export const updaterResource=async(idResource,resource)=>{
         return response;
 
     }catch (error) {
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 
 };
-export const deleteResource=async(idResource)=>{
+export const deleteResource=async(idResource,idOwner)=>{
     try{
-        const response = await axios.delete(RoutineUris.uriDeleteResource+`${idResource}`);
+        const response = await axios.delete(RoutineUris.uriDeleteResource+`${idResource}/${idOwner}`);
+
         return response;
 
     }catch (error) {
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 
 };
-export const getRoutinesAvailableByUser=async(idUser)=>{
+export const getUserRoutinesAvailableByUser=async(idUser)=>{
     try{
         const response = await axios.get(RoutineUris.uriGetUserRoutineAvailable+`${idUser}`);
         return response;
 
     }catch (error) {
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 
 };
@@ -174,17 +176,17 @@ export const registerUserRoutine=async(userRoutine)=>{
         return response;
 
     }catch (error) {
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 
 };
-export const changeStatusUserRoutinee=async(idRoutine,idUser,idStatus)=>{
+export const changeStatusUserRoutine=async(idRoutine,idUser,idStatus)=>{
     try{
         const response = await axios.put(RoutineUris.uriChangeStatusUserRoutine+`${idRoutine}`,{idUser:idUser,idStatus:idStatus});
         return response;
 
     }catch (error) {
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 
 };
@@ -194,7 +196,34 @@ export const getUserRoutineByIdUser=async(idUser)=>{
         return response;
 
     }catch (error) {
-        return errorManager(error.response.statusCode);
+        throw errorManager(error.response.statusCode);
     }
 
+};
+export const getAllStatus=async ()=>{
+    try{
+        const response = await axios.get(RoutineUris.uriGetAllStatus);
+        return response;
+
+    }catch (error) {
+        throw errorManager(error.response.statusCode);
+    }
+};
+export const getAllTypeRoutine=async ()=>{
+    try{
+        const response = await axios.get(RoutineUris.uriGetAllTypeRoutine);
+        return response;
+
+    }catch (error) {
+        throw errorManager(error.response.statusCode);
+    }
+};
+export const getAllTypeResource=async()=>{
+    try{
+        const response = await axios.get(RoutineUris.uriGetAllTypeResource);
+        return response;
+
+    }catch (error) {
+        throw errorManager(error.response.statusCode);
+    }
 };

@@ -25,6 +25,11 @@ import {getAllTypeResource} from "../data/routine/routine";
 import {changeStatusUserRoutine, createRequest} from "../data";
 const ID_USER=2;
 const ID_TRAINER=1;
+const UNAUTHORIZED=401;
+const isNotUserMessage="NO PUEDES REALIZAR ESTA ACCION PORQUE NO ERES UN USUARIO";
+const isNotTrainerMessage="NO PUEDES REALIZAR ESTA ACCION PORQUE NO ERES ENTRENADOR";
+const isNotUserError=new Error(UNAUTHORIZED+" "+isNotUserMessage);
+const isNotTrainerError=new Error(UNAUTHORIZED+" "+isNotTrainerMessage);
 
 const resolvers = {
     Query:{
@@ -35,7 +40,7 @@ const resolvers = {
         async getRoutineByIdOwner(_,{token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_TRAINER) {
-                return new Error("No eres entrenador");
+                throw isNotTrainerError;
             }
             let idOwner=userCredentials.ID;
             const response=await getRoutineByIdOwner(idOwner);
@@ -52,7 +57,7 @@ const resolvers = {
         async getUserRoutineAvailable(_,{token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_USER) {
-                return new Error("No eres usuario");
+                throw isNotUserError;
             }
             const response=await getUserRoutinesAvailableByUser(userCredentials.ID);
             return response.data;
@@ -60,7 +65,7 @@ const resolvers = {
         async getUserRoutineByIdUser(_,{token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_USER) {
-                return new Error("No eres usuario");
+            throw isNotUserError;
             }
             const response =await getUserRoutineByIdUser(userCredentials.ID);
             return response.data;
@@ -83,7 +88,7 @@ const resolvers = {
         async createRoutine(_,{newRoutine,token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_TRAINER) {
-                return new Error("No eres entrenador");
+                throw isNotTrainerError;
             }
             newRoutine.idOwner=userCredentials.ID;
             const response =await createRoutine(newRoutine);
@@ -93,7 +98,7 @@ const resolvers = {
         async updateRoutine(_,{idRoutine,routine,token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_TRAINER) {
-                return new Error("No eres entrenador");
+                throw isNotTrainerError;
             }
             routine.idOwner=userCredentials.ID;
             const response =await updateRoutine(idRoutine,routine);
@@ -102,7 +107,7 @@ const resolvers = {
         async rateRoutine(_,{idRoutine,raitingRoutinePOJO,token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_USER) {
-                return new Error("No eres usuario");
+                throw isNotUserError;
             }
             raitingRoutinePOJO.idUser=userCredentials.ID;
             const response =await rateRoutine(idRoutine,userCredentials.ID,raitingRoutinePOJO.raiting);
@@ -111,7 +116,7 @@ const resolvers = {
         async registerRequest(_,{registerRequestPOJO,token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_USER) {
-                return new Error("No eres usuario");
+                throw isNotUserError;
             }
             registerRequestPOJO.idUser=userCredentials.ID;
             const response=await createRequest(registerRequestPOJO.idRoutine,registerRequestPOJO.idUser)
@@ -124,7 +129,7 @@ const resolvers = {
         async registerResource(_,{idRoutine,registerResourcePOJO,token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_TRAINER) {
-                return new Error("No eres entrenador");
+                throw isNotTrainerError;
             }
             registerResourcePOJO.idOwner=userCredentials.ID;
             const response=await registerResource(idRoutine,registerResourcePOJO);
@@ -140,7 +145,7 @@ const resolvers = {
         async updateResource(_,{idResource,registerResourcePOJO,token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_TRAINER) {
-                return new Error("No eres entrenador");
+                throw isNotTrainerError;
             }
             registerResourcePOJO.idOwner=userCredentials.ID;
             const response =await updaterResource(idResource,registerResourcePOJO);
@@ -150,7 +155,7 @@ const resolvers = {
         async deleteResource(_,{idResource,token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_TRAINER) {
-                return new Error("No eres entrenador");
+                throw isNotTrainerError;
             }
             const response =await deleteResource(idResource,userCredentials.ID);
             return ResponseFactory(response);
@@ -158,7 +163,7 @@ const resolvers = {
         async registerUserRoutine(_,{registerUserRoutinePOJO,token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_TRAINER) {
-                return new Error("No eres entrenador");
+            throw isNotTrainerError;
             }
             registerUserRoutinePOJO.idOwner=userCredentials.ID;
             const response=await registerUserRoutine(registerUserRoutinePOJO);
@@ -167,7 +172,7 @@ const resolvers = {
         async changeStatusUserRoutine(_,{changeStatusPOJO,idRoutine,token}){
             const userCredentials=await authValidateAuthToken(token);
             if (userCredentials.TypeID!=ID_USER) {
-                return new Error("No eres usuario")
+                throw isNotUserError;
             }
 
             const response =await changeStatusUserRoutine(idRoutine,userCredentials.ID,changeStatusPOJO.idStatus);
@@ -177,8 +182,7 @@ const resolvers = {
     }
 };
 const ResponseFactory=(response)=>{
-    let r={status:response.status,
-        data:response.data}
+    let r=response.status
         return r;
 }
 

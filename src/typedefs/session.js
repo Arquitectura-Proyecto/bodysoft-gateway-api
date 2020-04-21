@@ -6,7 +6,7 @@ getAllbyCoachAvaibles(User:String!, coach: Int!):[Schudele]
 `
 
 export const mutations = `
-registerSchedules(schedule:Schedule!):String
+registerSchedules(schedule:Schedule!):Schudele
 deleteSchedules(ChangeStatus: ChangeStatus!):String
 setAdates(ChangeStatus: ChangeStatus!):String
 CancelADate(ChangeStatus: ChangeStatus!):String

@@ -1,5 +1,4 @@
 export const queries = `
-hello:String
 chatsUsers(_id:ID!):[Chat]
 chatsTrainers(_id:ID!):[Chat]
 chatTrainerUser(_id:ID! , userId:ID!): Chat
@@ -7,7 +6,6 @@ chatUserTrainer(_id:ID!, trainerId:ID!): Chat
 `
 
 export const mutations = `
-taskHello:String
 createChatTrainerUser(_id:ID! , userId:ID!) : Chat
 createChatUserTrainer(_id:ID! , trainerId:ID!) : Chat
 createMessageTrainerUser(_id:ID!, chatId:ID!, message : InputMessage!) : Message

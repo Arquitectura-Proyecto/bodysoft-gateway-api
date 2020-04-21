@@ -57,7 +57,7 @@ export const registerSchedule = async (schedule, Type) => {
             throw new Error(err);
             }
         const response = await axios.post(uriSession + '/schedule/create',schedule);
-        return response.status;
+        return response.data;
     } catch (error) {
         if(error.response!=null){
             const err = errorManager(error.response);

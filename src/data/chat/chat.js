@@ -30,10 +30,10 @@ export const postTrainerUserChat = async (trainerId, userId) => {
     }
 }
 
-export const postMessageUser = async (trainerId, chatId, messageContent) => {
+export const postMessageUser = async (trainerId, chatId, message) => {
     try {
         const response = await axios.post(uriChatTrainer  + trainerId + '/' + chatId, {
-            message : messageContent
+            message : message
         });
         return response.data;
     }catch(error){

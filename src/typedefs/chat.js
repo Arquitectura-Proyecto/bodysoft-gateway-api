@@ -23,14 +23,11 @@ type Chat{
 type Message{
     _id:ID
     date:String
-    id_autor:ID
+    id_author:ID
     content:String!
 }
 
 input InputMessage{
-    _id:ID
-    date:String
-    id_autor:ID
     content:String!
 }
 `

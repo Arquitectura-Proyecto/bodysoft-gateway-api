@@ -6,7 +6,7 @@ export const getChatsTrainer = async (idTrainer) => {
         const response = await axios.get(uriChatTrainer + idTrainer);
         return response.data;
     } catch (error) {
-        console.error(error);
+        throw error;
     }
 }
 
@@ -15,7 +15,7 @@ export const getTrainerUserChat = async (trainerId, userId ) => {
         const response = await axios.get(uriChatTrainer + trainerId + '/' + userId);
         return response.data;
     }catch(error){
-        console.log(error);
+        throw error;
     }
 }
 
@@ -26,18 +26,18 @@ export const postTrainerUserChat = async (trainerId, userId) => {
         });
         return response.data;
     }catch(error){
-        console.log(error);
+        throw error;
     }
 }
 
-export const postMessageUser = async (trainerId, chatId, messageContent) => {
+export const postMessageUser = async (trainerId, chatId, message) => {
     try {
         const response = await axios.post(uriChatTrainer  + trainerId + '/' + chatId, {
-            message : messageContent
+            message : message
         });
         return response.data;
     }catch(error){
-        console.log(error);
+        throw error;
     }
 }
 
@@ -47,7 +47,7 @@ export const getChatsUser = async (idUser) => {
         const response = await axios.get(uriChatUser  + idUser);
         return response.data;
     }catch(error){
-        console.log(error);
+        throw error;
     }
 }
 
@@ -56,7 +56,7 @@ export const getUserTrainerChat = async (userId, trainerId) => {
         const response = await axios.get(uriChatUser  + userId + '/' + trainerId);
         return response.data;
     }catch(error){
-        console.log(error);
+        throw error;
     }
 }
 
@@ -67,7 +67,7 @@ export const postUserTrainerChat = async (userId, trainerId) => {
         });
         return response.data;
     }catch(error){
-        console.log(error);
+        throw error;
     }
 }
 export const postMessageTrainer = async (userId, chatId, messageContent) => {
@@ -77,6 +77,6 @@ export const postMessageTrainer = async (userId, chatId, messageContent) => {
         });
         return response.data;
     }catch(error){
-        console.log(error);
+        throw error;
     }
 }

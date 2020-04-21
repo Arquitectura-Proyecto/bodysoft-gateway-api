@@ -12,7 +12,10 @@ function myJsonToString (j){
 }
 
 
-
+function createError(error){
+    return err = error.response.status  + ' ' + myJsonToString(error.response.data);
+    
+}
 
 
 /*----------------------- GET --------------------------*/

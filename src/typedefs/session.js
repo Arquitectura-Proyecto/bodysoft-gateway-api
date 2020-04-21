@@ -25,8 +25,8 @@ input Schedule{
     endTime: String!
 }
 
-type Status{
-    id:Int
+type Session_Status{
+    id_status:Int
     nameStatus:String
 }
 type Schudele{
@@ -35,7 +35,7 @@ type Schudele{
     daySession:String
     iniTime:String
     endTime:String
-    status:Status
+    status:Session_Status
     idUser:Int
 }
 `

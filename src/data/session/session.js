@@ -4,25 +4,10 @@ import axios from "axios";
 
 const FORBIDDEN=403;
 const BAD_REQUEST=400;
-const CONFLICT=409;
-const INTERNAL_ERROR = 500;
-const errorManager=(statusCode)=>{
-    switch (statusCode) {
-        case FORBIDDEN:
-            return FORBIDDEN + " No autorizado para hacer ejecutar esta petición";
-            break;
-        case BAD_REQUEST:
-            return BAD_REQUEST + " Falta algun campo o los campos no son validos";
-            break;
-        case CONFLICT:
-            return CONFLICT + " Se entró en conflico con la base de datos";
-            break;
-        case INTERNAL_ERROR:
-            return INTERNAL_ERROR + " Error interno";
-            break;
-        default:
-            return CONFLICT + " Error no identificado";
-    }
+const errorManager=(error)=>{
+
+    return error.status + " "+error.data;
+    
 
 }
 
@@ -55,20 +40,27 @@ export const registerSchedule = async (schedule, Type) => {
     try {
 
         if(Type===2){
-            const err = errorManager(FORBIDDEN);
+            const error = {
+                status: FORBIDDEN,
+                data: "Solo disponible para entrenadores"
+            }
+            const err = errorManager(error);
             throw new Error(err);
         }
         if(!IsDateright(schedule.daySession)|| 
-            !IsTimeright(schedule.iniTime)|| !IsTimeright(schedule.endTime)){
-                
-            const err = errorManager(BAD_REQUEST);
+        !IsTimeright(schedule.iniTime)|| !IsTimeright(schedule.endTime)){
+            const error = {
+                status: BAD_REQUEST,
+                data: "Formato de Fecha u hora incorrectos"
+            }
+            const err = errorManager(error);
             throw new Error(err);
-        }
+            }
         const response = await axios.post(uriSession + '/schedule/create',schedule);
         return response.status;
     } catch (error) {
         if(error.response!=null){
-            const err = errorManager(error.response.status);
+            const err = errorManager(error.response);
             throw new Error(err);
         } else{
             throw error;
@@ -86,7 +78,11 @@ export const deleteSchedule = async (ChageState, Type) => {
     try {
         
         if(Type===2){
-            const err = errorManager(FORBIDDEN);
+            const error = {
+                status: FORBIDDEN,
+                data: "Solo disponible para entrenadores"
+            }
+            const err = errorManager(error);
             throw new Error(err);
         }
 
@@ -94,7 +90,7 @@ export const deleteSchedule = async (ChageState, Type) => {
         return response.status;
     } catch (error) {
         if(error.response!=null){
-            const err = errorManager(error.response.status);
+            const err = errorManager(error.response);
             throw new Error(err);
         } else{
             throw error;
@@ -108,7 +104,11 @@ PUT
 export const setAdate = async (ChageState, Type) => {
     try {
         if(Type===1){
-            const err = errorManager(FORBIDDEN);
+            const error = {
+                status: FORBIDDEN,
+                data: "Solo disponible para usuarios"
+            }
+            const err = errorManager(error);
             throw new Error(err);
         }
 
@@ -116,7 +116,7 @@ export const setAdate = async (ChageState, Type) => {
         return response.status;
     } catch (error) {
         if(error.response!=null){
-            const err = errorManager(error.response.status);
+            const err = errorManager(error.response);
             throw new Error(err);
         } else{
             throw error;
@@ -129,7 +129,7 @@ export const calcelUser = async (ChageState) => {
         const response = await axios.put(uriSession + '/cancel/user',ChageState);
         return response.status;
     } catch (error) {
-        const err = errorManager(error.response.status)
+        const err = errorManager(error.response)
         throw new Error(err);
     }
 }
@@ -139,7 +139,7 @@ export const calcelCoach = async (ChageState) => {
         const response = await axios.put(uriSession + '/cancel/coach',ChageState);
         return response.status;
     } catch (error) {
-        const err = errorManager(error.response.status)
+        const err = errorManager(error.response)
         throw new Error(err);
     }
 }
@@ -152,7 +152,7 @@ export const getAllbyIdCoach = async (idCoach) => {
         const response = await axios.get(uriSession + '/get-by-idCoach/' + idCoach);
         return response.data;
     } catch (error) {
-        const err = errorManager(error.response.status);
+        const err = errorManager(error.response);
         throw new Error(err);
     }
 }
@@ -161,7 +161,7 @@ export const getAllbyCoachCurrent = async (idCoach) => {
         const response = await axios.get(uriSession + '/get-by-idCoach/Current/' + idCoach);
         return response.data;
     } catch (error) {
-        const err = errorManager(error.response.status);
+        const err = errorManager(error.response);
         throw new Error(err);
     }
 }
@@ -170,7 +170,7 @@ export const getAllbyCoachAvaible = async (idCoach) => {
         const response = await axios.get(uriSession + '/get-by-idCoach/Avaible/' + idCoach);
         return response.data;
     } catch (error) {
-        const err = errorManager(error.response.status);
+        const err = errorManager(error.response);
         throw new Error(err);
     }
 }
@@ -180,7 +180,7 @@ export const getAllbyIdUser = async (idUser) => {
         const response = await axios.get(uriSession + '/get-by-idUser/' + idUser);
         return response.data;
     } catch (error) {
-        const err = errorManager(error.response.status);
+        const err = errorManager(error.response);
         throw new Error(err);
     }
 }
@@ -189,7 +189,7 @@ export const getAllbyUserCurrent = async (idUser) => {
         const response = await axios.get(uriSession + '/get-by-idUser/Current/' + idUser);
         return response.data;
     } catch (error) {
-        const err = errorManager(error.response.status);
+        const err = errorManager(error.response);
         throw new Error(err);
     }
 }
@@ -198,7 +198,7 @@ export const getbyIdSchedule = async (idUser) => {
         const response = await axios.get(uriSession + '/get-by-idSchedule/' + idUser);
         return response.data;
     } catch (error) {
-        const err = errorManager(error.response.status);
+        const err = errorManager(error.response);
         throw new Error(err);
         
     }

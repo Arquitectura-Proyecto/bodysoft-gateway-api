@@ -47,7 +47,7 @@ export const registerSchedule = async (schedule, Type) => {
             const err = errorManager(error);
             throw new Error(err);
         }
-        if(!IsDateright(schedule.daySession)|| 
+        else if(!IsDateright(schedule.daySession)|| 
         !IsTimeright(schedule.iniTime)|| !IsTimeright(schedule.endTime)){
             const error = {
                 status: BAD_REQUEST,
@@ -56,8 +56,10 @@ export const registerSchedule = async (schedule, Type) => {
             const err = errorManager(error);
             throw new Error(err);
             }
+            else{
         const response = await axios.post(uriSession + '/schedule/create',schedule);
         return response.data;
+            }
     } catch (error) {
         if(error.response!=null){
             const err = errorManager(error.response);
@@ -85,9 +87,11 @@ export const deleteSchedule = async (ChageState, Type) => {
             const err = errorManager(error);
             throw new Error(err);
         }
+        else{
 
         const response = await axios.delete(uriSession + '/schedule/delete',{ data: ChageState});
         return response.status;
+        }
     } catch (error) {
         if(error.response!=null){
             const err = errorManager(error.response);
@@ -111,9 +115,11 @@ export const setAdate = async (ChageState, Type) => {
             const err = errorManager(error);
             throw new Error(err);
         }
+        else{
 
         const response = await axios.put(uriSession + '/set-a-date',ChageState);
         return response.status;
+        }
     } catch (error) {
         if(error.response!=null){
             const err = errorManager(error.response);

@@ -32,7 +32,31 @@ const resolvers = {
         }
     },
     Mutation:{
-        
+        async createProfileUser(_,{body}){
+            const response = await Profile.postProfileUser(body);
+            return response;
+        },
+        async createProfileTrainer(_,{body}){
+            const response = await Profile.postProfileTrainer(body);
+            return response;
+        },
+        async createProfileSpeciality(_,{body}){
+            const response = await Profile.postProfileSpeciality(body);
+            return response;
+        },
+        async createProfileDegree(_,{body}){
+            const response = await Profile.postProfileDegree(body);
+            return response;
+        },
+        async createProfileTrainerSpeciality(_,{body}){
+            const response = await Profile.postProfileTrainerSpeciality(body);
+            return response;
+        },
+
+        async deleteProfileUser(_,{idUser}){
+            const response = await Profile.deleteProfileUser(idUser);
+            return response.status;
+        }
     }
 }
 

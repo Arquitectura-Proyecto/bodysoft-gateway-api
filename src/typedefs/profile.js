@@ -4,18 +4,27 @@ profileTrainers:[profileTrainer]
 profileDegreesByTrainers(idTrainer:ID!):[profileDegree]
 profileSpecialities:[profileSpeciality]
 profileTrainersBySpeciality(idSpeciality:ID!):[profileTrainer]
-profileUser(idUser:ID!):profileUser
-profileTrainer(idTrainer:ID!):profileTrainer
+profileUser(token:String!):profileUser
+profileTrainer(token:String!):profileTrainer
 `
 
 export const mutations = `
-createProfileUser(body:inputProfileUser!):profileUser
-createProfileTrainer(body:inputProfileTrainer!):profileTrainer
+createProfile(body:inputProfile,token:String):String
 createProfileSpeciality(body:inputProfileSpeciality!):profileSpeciality
-createProfileDegree(body:inputProfileDegree!):profileDegree
-createProfileTrainerSpeciality(body:inputProfileTrainerSpeciality):profileTrainerSpeciality
+createProfileDegree(body:inputProfileDegree!, token:String!):profileDegree
+createProfileTrainerSpeciality(body:inputProfileTrainerSpeciality!, token:String):profileTrainerSpeciality
 
-deleteProfileUser(idUser:ID!):String
+deleteProfileUser(token:String!):String
+deleteProfileTrainer(token:String!):String
+deleteProfileSpeciality(idSpeciality:ID!):String
+deleteProfileDegree(idDegree:ID!, token:String!):String
+deleteProfileTrainerSpeciality(idSpeciality:ID!, token:String!): String
+
+updateProfileUser(body:updProfileUser!, token:String!):profileUser
+updateProfileTrainer(body:updProfileTrainer!, token:String!):profileTrainer
+updateProfileDegree(body:updProfileDegree!, token:String!):profileDegree
+updateProfileSpeciality(body:updProfileSpeciality!):profileSpeciality
+
 
 `
 
@@ -62,6 +71,20 @@ type profileTrainerSpeciality{
     speciality:ID
 }
 
+
+input inputProfile{
+    name:String!
+    age:Int!
+    photo:String!
+    telephone:String!
+    city:String!
+    sum_ratings:Int
+    num_ratings:Int
+    description:String
+    work_experience:String
+    resources:String
+}
+
 input inputProfileUser{
     user_id:ID!
     user_name:String!
@@ -93,12 +116,45 @@ input inputProfileDegree{
     degree_name:String!
     year:Int!
     institution:String!
-    trainer:Int!
 }
 
 input inputProfileTrainerSpeciality{
-    trainer:ID!
     speciality:ID!
 }
 
+
+input updProfileUser  {
+    user_name:String!
+    age:Int!
+    photo:String!
+    telephone:String!
+    city:String!
+}
+
+input updProfileTrainer {
+    trainer_name:String!
+    age:Int!
+    photo:String!
+    telephone:String!
+    city:String!
+    sum_ratings:Int!
+    num_ratings:Int!
+    description:String!
+    work_experience:String!
+    resources:String!
+}
+
+input updProfileDegree {
+    degree_id:ID!
+    degree_name:String!
+    year:Int!
+    institution:String!
+}
+
+input updProfileSpeciality {
+    speciality_id:ID!
+    speciality_name:String!
+}
+
 `
+

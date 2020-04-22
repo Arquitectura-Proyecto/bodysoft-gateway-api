@@ -20,7 +20,7 @@ const resolvers = {
         },
         async chatTrainerUser(_, { token, userId }) {
             const responseToken = await Authentication.authValidateAuthToken(token);
-            if (responseToken.TypeID != 2){
+            if (responseToken.TypeID != 1){
                 throw new Error('409 wrong user type')
             }
             const response = await Chat.getTrainerUserChat(responseToken.ID, userId);
@@ -28,7 +28,7 @@ const resolvers = {
         },
         async chatUserTrainer(_, { token, trainerId }) {
             const responseToken = await Authentication.authValidateAuthToken(token);
-            if (responseToken.TypeID != 1){
+            if (responseToken.TypeID != 2){
                 throw new Error('409 wrong user type')
             }
             const response = await Chat.getUserTrainerChat(responseToken.ID, trainerId);

@@ -3,6 +3,17 @@ import axios from "axios";
 
 
 
+function myJsonToString (j){
+    var mystring = ""
+    for (var key in j) {
+        mystring += key + ": " + j[key];
+    }
+    return mystring;
+}
+
+
+
+
 /*----------------------- GET --------------------------*/
 
 
@@ -12,7 +23,8 @@ export const getProfileUsers = async () => {
         const response = await axios.get(uriProfileUser + '/');
         return response.data;
     } catch (error) {
-        console.error(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
 }
 
@@ -22,7 +34,8 @@ export const getProfileTrainers = async () => {
         const response = await axios.get(uriProfileTrainer + '/');
         return response.data;
     } catch (error) {
-        console.error(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
 }
 
@@ -32,7 +45,8 @@ export const getDegreesByTrainers = async (idTrainer) => {
         const response = await axios.get(uriProfileDegree + '/degrees_by_trainer?trainer=' + idTrainer);
         return response.data;
     } catch (error) {
-        console.error(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
 }
 
@@ -42,7 +56,8 @@ export const getProfileSpecialities = async () => {
         const response = await axios.get(uriProfileSpeciaity + '/');
         return response.data;
     } catch (error) {
-        console.error(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
 }
 
@@ -52,7 +67,8 @@ export const getTrainersBySpeciality = async (idSpeciality) => {
         const response = await axios.get(uriProfileTrainer + '/trainers_by_speciality?specialities=' + idSpeciality);
         return response.data;
     } catch (error) {
-        console.error(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
 }
 
@@ -63,9 +79,8 @@ export const getProfileUser = async (idUser) => {
         const response = await axios.get(uriProfileUser + '/' + idUser);
         return response.data;
     }catch(error){
-        console.log(error.response.data)
-        var err = error.response.status + " " + error.response.data
-        throw new Error(err)
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -76,10 +91,8 @@ export const getProfileTrainer = async (idTrainer) => {
         const response = await axios.get(uriProfileTrainer + '/' + idTrainer);
         return response.data;
     }catch(error){
-        return error.response.data;
-        console.log(error.response.data)
-        var err = error.response.status + " " + error.response.data
-        throw new Error(err)
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -93,7 +106,8 @@ export const postProfileUser = async (body) => {
         const response = await axios.post(uriProfileUser + '/', body);
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -105,7 +119,8 @@ export const postProfileTrainer = async (body) => {
         const response = await axios.post(uriProfileTrainer + '/', body);
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -116,7 +131,8 @@ export const postProfileSpeciality = async (body) => {
         const response = await axios.post(uriProfileSpeciaity + '/', body);
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -127,7 +143,8 @@ export const postProfileDegree = async (body) => {
         const response = await axios.post(uriProfileDegree + '/', body);
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -138,7 +155,8 @@ export const postProfileTrainerSpeciality = async (body) => {
         const response = await axios.post(uriProfileTrainerSpeciality+ '/', body);
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -152,7 +170,8 @@ export const deleteProfileUser = async (idUser) => {
         const response = await axios.delete(uriProfileUser + '/' + idUser + '/');
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -163,7 +182,8 @@ export const deleteProfileTrainer = async (idTrainer) => {
         const response = await axios.delete(uriProfileTrainer + '/' + idTrainer + '/');
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -174,7 +194,8 @@ export const deleteProfileSpeciality = async (idSpeciality) => {
         const response = await axios.delete(uriProfileSpeciaity + '/' + idSpeciality + '/');
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -185,7 +206,8 @@ export const deleteProfileDegree = async (idDegree) => {
         const response = await axios.delete(uriProfileDegree + '/' + idDegree + '/');
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -196,7 +218,8 @@ export const deleteProfileTrainerSpeciality = async (idTrainer, idSpeciality) =>
         const response = await axios.delete(uriProfileTrainerSpeciality + '/delete_trainerspeciality/?trainer=' + idTrainer +  '&speciality=' + idSpeciality);
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -210,7 +233,8 @@ export const updateProfileUser = async (idUser, body) => {
         const response = await axios.put(uriProfileUser + '/' + idUser +  '/', body);
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -221,7 +245,8 @@ export const updateProfileTrainer = async (idTrainer, body) => {
         const response = await axios.put(uriProfileTrainer + '/' + idTrainer +  '/', body);
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -232,7 +257,8 @@ export const updateProfileDegree = async (idDegree, body) => {
         const response = await axios.put(uriProfileDegree + '/' + idDegree +  '/', body);
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }
@@ -243,7 +269,8 @@ export const updateProfileSpeciality = async (idSpeciality, body) => {
         const response = await axios.put(uriProfileSpeciaity + '/' + idSpeciality +  '/', body);
         return response.data;
     }catch(error){
-        console.log(error);
+        const err = error.response.status  + ' ' + myJsonToString(error.response.data) 
+        throw new Error(err);
     }
     
 }

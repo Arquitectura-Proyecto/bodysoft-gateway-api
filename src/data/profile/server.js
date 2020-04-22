@@ -1,4 +1,4 @@
-const ip = "54.236.130.54";
+const ip = "localhost";
 export const uriProfileUser = "http://" + ip + ":8000/bs-profile-ms/users"
 export const uriProfileTrainer = "http://" + ip + ":8000/bs-profile-ms/trainers"
 export const uriProfileSpeciaity = "http://" + ip + ":8000/bs-profile-ms/specialities"

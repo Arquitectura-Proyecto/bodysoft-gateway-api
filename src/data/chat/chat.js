@@ -6,7 +6,7 @@ export const getChatsTrainer = async (idTrainer) => {
         const response = await axios.get(uriChatTrainer + idTrainer);
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error(error.response.status + " " + error.response.data);
     }
 }
 
@@ -15,7 +15,7 @@ export const getTrainerUserChat = async (trainerId, userId ) => {
         const response = await axios.get(uriChatTrainer + trainerId + '/' + userId);
         return response.data;
     }catch(error){
-        throw error;
+        throw new Error(error.response.status + " " + error.response.data);
     }
 }
 
@@ -26,7 +26,7 @@ export const postTrainerUserChat = async (trainerId, userId) => {
         });
         return response.data;
     }catch(error){
-        throw error;
+        throw new Error(error.response.status + " " + error.response.data);
     }
 }
 
@@ -37,7 +37,7 @@ export const postMessageUser = async (trainerId, chatId, message) => {
         });
         return response.data;
     }catch(error){
-        throw error;
+        throw new Error(error.response.status + " " + error.response.data);
     }
 }
 
@@ -47,7 +47,7 @@ export const getChatsUser = async (idUser) => {
         const response = await axios.get(uriChatUser  + idUser);
         return response.data;
     }catch(error){
-        throw error;
+        throw new Error(error.response.status + " " + error.response.data);
     }
 }
 

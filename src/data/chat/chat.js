@@ -67,7 +67,7 @@ export const postUserTrainerChat = async (userId, trainerId) => {
         });
         return response.data;
     }catch(error){
-        throw error;
+        throw new Error(error.response.status + " " + error.response.data);
     }
 }
 export const postMessageTrainer = async (userId, chatId, messageContent) => {
@@ -77,6 +77,6 @@ export const postMessageTrainer = async (userId, chatId, messageContent) => {
         });
         return response.data;
     }catch(error){
-        throw error;
+        throw new Error(error.response.status + " " + error.response.data);
     }
 }

@@ -1,0 +1,15 @@
+version: '3'
+services: 
+    bodysoft-gateway-api:
+        container_name: bodysoft-gateway-api
+        
+        build: .
+        environment: 
+            PORT: '4000'
+            CHAT_HOST: 'http://host.docker.internal:4500'
+            PROFILE_HOST: 'http://3.89.152.158:4500'
+            AUTHENTICATION_HOST: 'http://host.docker.internal:4002'
+            ROUTINE_HOST: 'http://host.docker.internal:8080/routine-ms'
+            SESSION_HOST: 'http://3.89.152.158:4500'
+        ports: 
+            - '4000:4000'

@@ -1,0 +1,10 @@
+const uri = process.env.AUTHENTICATION_HOST || "http://localhost:4002"
+
+export const authUriCreateUser = uri+"/create-user"
+export const authUriGetTypes = uri+"/get-types"
+export const authUriRecoverPassword = uri+"/recover-password"
+export const authUriValidateAuthToken = uri+"/validate-auth-token"
+export const authUriAuthentication = uri+"/authentication"
+export const authUriChagePassword = uri+"/change-password"
+export const authUriAssignProfile = uri+"/assign-profile"
+export const authUriVerifyAcount = uri+"/verify-acount"

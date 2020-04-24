@@ -9,6 +9,8 @@ profileTrainer(token:String!):profileTrainer
 
 
 profileLoad(token:String!):profileLoad
+
+profileToAddSpecialitities(token:String!):[profileSpeciality]
 `
 
 export const mutations = `

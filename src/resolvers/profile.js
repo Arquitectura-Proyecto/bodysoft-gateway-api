@@ -32,6 +32,17 @@ const resolvers = {
         },
 
 
+
+        async profileLoad(_,{token}){
+            const validate = await Auth.authValidateAuthToken(token);
+            if (validate.TypeID ==1){
+                const response = await Profile.getProfileUser(validate.ID);
+                return response;
+            }
+            const response = await Profile.getProfileTrainer(validate.ID);
+            return response;
+        },
+
         async profileUser(_,{token}){
             const validate = await Auth.authValidateAuthToken(token);
             if (validate.TypeID != 1)
@@ -58,14 +69,14 @@ const resolvers = {
                 body.trainer_id=validate.ID;
                 const response = await Profile.postProfileTrainer(body);
                 await Auth.authAssignProfile(token);
-                return response.status;
-            }else{
-                body.user_name=body.name;
-                body.user_id=validate.ID;
-                const response = await Profile.postProfileUser(body);
-                await Auth.authAssignProfile(token);
-                return response.status;
+                return "trainer created";
             }
+            body.user_name=body.name;
+            body.user_id=validate.ID;
+            const response = await Profile.postProfileUser(body);
+            await Auth.authAssignProfile(token);
+            return "user created";
+        
             
         },
 

@@ -8,6 +8,12 @@ const isNotTrainerMessage="NO PUEDES REALIZAR ESTA ACCION PORQUE NO ERES ENTRENA
 const isNotUserError=new Error(UNAUTHORIZED+" "+"isNotUserMessage");
 const isNotTrainerError=new Error(UNAUTHORIZED+" "+isNotTrainerMessage);
 
+var removeItemFromArr = ( arr, item ) => {
+    var i = arr.indexOf( item );
+    i !== -1 && arr.splice( i, 1 );
+};
+
+
 const resolvers = {
     Query:{
         async profileUsers(_){
@@ -32,6 +38,7 @@ const resolvers = {
         },
 
 
+
         async profileUser(_,{token}){
             const validate = await Auth.authValidateAuthToken(token);
             if (validate.TypeID != 1)
@@ -47,7 +54,36 @@ const resolvers = {
 
             const response = await Profile.getProfileTrainer(validate.ID);
             return response;
-        }
+        },
+
+        async profileLoad(_,{token}){
+            const validate = await Auth.authValidateAuthToken(token);
+            if (validate.TypeID ==1){
+                const response = await Profile.getProfileUser(validate.ID);
+                return response;
+            }
+            const response = await Profile.getProfileTrainer(validate.ID);
+            return response;
+        },
+
+       
+        async profileToAddSpecialitities(_,{token}){
+            const validate = await Auth.authValidateAuthToken(token);
+            if (validate.TypeID !=2){
+                throw isNotTrainerError;
+            }
+
+            const trainer = await Profile.getProfileTrainer(validate.ID);
+            const specialities = await Profile.getProfileSpecialities();
+
+            for (let s of trainer.specialities){
+                const found = specialities.find(speciality => speciality.speciality_name == s);
+                if (found != undefined)
+                    removeItemFromArr(specialities,found);   
+            }           
+            return specialities;
+        },
+
     },
     Mutation:{
         async createProfile(_,{body,token}){
@@ -58,14 +94,14 @@ const resolvers = {
                 body.trainer_id=validate.ID;
                 const response = await Profile.postProfileTrainer(body);
                 await Auth.authAssignProfile(token);
-                return response.status;
-            }else{
-                body.user_name=body.name;
-                body.user_id=validate.ID;
-                const response = await Profile.postProfileUser(body);
-                await Auth.authAssignProfile(token);
-                return response.status;
+                return "trainer created";
             }
+            body.user_name=body.name;
+            body.user_id=validate.ID;
+            const response = await Profile.postProfileUser(body);
+            await Auth.authAssignProfile(token);
+            return "user created";
+        
             
         },
 

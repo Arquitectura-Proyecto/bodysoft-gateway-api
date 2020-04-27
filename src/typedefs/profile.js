@@ -6,6 +6,11 @@ profileSpecialities:[profileSpeciality]
 profileTrainersBySpeciality(idSpeciality:ID!):[profileTrainer]
 profileUser(token:String!):profileUser
 profileTrainer(token:String!):profileTrainer
+
+
+profileLoad(token:String!):profileLoad
+
+profileToAddSpecialitities(token:String!):[profileSpeciality]
 `
 
 export const mutations = `
@@ -71,6 +76,23 @@ type profileTrainerSpeciality{
     speciality:ID
 }
 
+
+type profileLoad{
+    trainer_id:ID
+    user_id:ID
+    trainer_name:String
+    user_name:String
+    age:Int
+    photo:String
+    telephone:String
+    city:String
+    sum_ratings:Int
+    num_ratings:Int
+    description:String
+    work_experience:String
+    resources:String
+    specialities:[String]
+}
 
 input inputProfile{
     name:String!

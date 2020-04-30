@@ -6,25 +6,25 @@ const resolvers = {
         async getAllbyId(_,{Token}){
             
                 const validate = await authValidateAuthToken(Token);
-                if(validate.TypeID===1){
+                if(validate.TypeID==1){
                     const response = await getAllbyIdCoach(validate.ID);
-                    return response;
+                    return response.data;
                 }
                 else{
                     const response = await getAllbyIdUser(validate.ID);
-                    return response;
+                    return response.data;
                 }
         },
         async getCurrentbyId(_,{Token}){
             
                 const validate = await authValidateAuthToken(Token);
-                if(validate.TypeID===1){
+                if(validate.TypeID==1){
                     const response = await getAllbyCoachCurrent(validate.ID);
-                    return response;
+                    return response.data;
                 }
                 else{
                     const response = await getAllbyUserCurrent(validate.ID);
-                    return response;
+                    return response.data;
                 }
             
         },
@@ -33,7 +33,7 @@ const resolvers = {
                 const validate = await authValidateAuthToken(User);
                 const response = await getbyIdSchedule(schedule);
                 
-                return response;
+                return response.data;
             
         },
         async getAllbyCoachAvaibles(_,{User,coach}){
@@ -41,7 +41,7 @@ const resolvers = {
             const validate = await authValidateAuthToken(User);
             const response = await getAllbyCoachAvaible(coach);
             
-            return response;
+            return response.data;
         
     }
     },
@@ -57,7 +57,7 @@ const resolvers = {
                 }
                 const response = await registerSchedule(schedule,validate.TypeID);
                 
-                return response;
+                return response.data;
              
             
         },
@@ -72,7 +72,7 @@ const resolvers = {
                 }
                 const response = await deleteSchedule(ChangeStatus,validate.TypeID);
                 
-                return response;
+                return response.status;
             
             
         },
@@ -86,7 +86,7 @@ const resolvers = {
                 }
                 const response = await setAdate(ChangeStatus,validate.TypeID);
                 
-                return response;
+                return response.status;
             
             
         },
@@ -98,13 +98,13 @@ const resolvers = {
                     "schedule": ChangeStatus.schedule
                     
                 }
-                if(validate.TypeID===1){
+                if(validate.TypeID==1){
                     const response = await calcelCoach(ChangeStatus);
-                    return response;
+                    return response.status;
                 }
                 else{
                     const response = await calcelUser(ChangeStatus);   
-                    return response;
+                    return response.status;
                 }      
             
         }

@@ -10,9 +10,11 @@ export const mutations = `
     authChagePassword(authChangePass: authChangePass!): String
     authAssignProfile(token: String!): authToken
     authVerifyAcount(email: String!, vcode: Int!): String
+    webValidateAuthToken(token: String!): authSessionData
+    webAuthentication(email: String!, password: String!): authToken
 `
 
-export const typeDefs =`
+export const typeDefs = `
 type authType {
     ID: Int
     CreatedAt: String

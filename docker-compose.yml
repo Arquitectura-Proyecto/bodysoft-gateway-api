@@ -7,9 +7,9 @@ services:
         environment: 
             PORT: '4000'
             CHAT_HOST: 'http://host.docker.internal:4500'
-            PROFILE_HOST: 'http://3.89.152.158:4500'
+            PROFILE_HOST: 'http://host.docker.internal:8000'
             AUTHENTICATION_HOST: 'http://host.docker.internal:4002'
             ROUTINE_HOST: 'http://host.docker.internal:8080/routine-ms'
-            SESSION_HOST: 'http://3.89.152.158:4500'
+            SESSION_HOST: 'http://host.docker.internal:3301'
         ports: 
             - '4000:4000'

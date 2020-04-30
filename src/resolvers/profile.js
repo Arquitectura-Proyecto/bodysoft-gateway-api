@@ -89,7 +89,7 @@ const resolvers = {
         async createProfile(_,{body,token}){
             const validate = await Auth.authValidateAuthToken(token);
 
-            if (validate.TypeID == 2){
+            if (validate.TypeID == 1){
                 body.trainer_name=body.name;
                 body.trainer_id=validate.ID;
                 const response = await Profile.postProfileTrainer(body);

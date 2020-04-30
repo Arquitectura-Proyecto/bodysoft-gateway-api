@@ -1,6 +1,6 @@
-const ip = "localhost";
-export const uriProfileUser = "http://" + ip + ":8000/bs-profile-ms/users"
-export const uriProfileTrainer = "http://" + ip + ":8000/bs-profile-ms/trainers"
-export const uriProfileSpeciaity = "http://" + ip + ":8000/bs-profile-ms/specialities"
-export const uriProfileDegree = "http://" + ip + ":8000/bs-profile-ms/degrees"
-export const uriProfileTrainerSpeciality = "http://" + ip + ":8000/bs-profile-ms/trainerSpecialities"
+const ip = process.env.PROFILE_HOST || "http://localhost:8000";
+export const uriProfileUser = ip + "/bs-profile-ms/users"
+export const uriProfileTrainer = ip + "/bs-profile-ms/trainers"
+export const uriProfileSpeciaity = ip + "/bs-profile-ms/specialities"
+export const uriProfileDegree = ip + "/bs-profile-ms/degrees"
+export const uriProfileTrainerSpeciality = "http://" + ip + "/bs-profile-ms/trainerSpecialities"

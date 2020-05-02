@@ -41,7 +41,7 @@ const resolvers = {
 
         async profileUser(_,{token}){
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID != 1)
+            if (validate.TypeID != 2)
                 throw isNotUserError;
 
             const response = await Profile.getProfileUser(validate.ID);
@@ -49,7 +49,7 @@ const resolvers = {
         },
         async profileTrainer(_,{token}){
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID != 2)
+            if (validate.TypeID != 1)
                 throw isNotTrainerError;
 
             const response = await Profile.getProfileTrainer(validate.ID);
@@ -112,7 +112,7 @@ const resolvers = {
         async createProfileDegree(_,{body,token}){
             
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID != 2)
+            if (validate.TypeID != 1)
                 throw isNotTrainerError;
             
             body.trainer=validate.ID;
@@ -122,7 +122,7 @@ const resolvers = {
         async createProfileTrainerSpeciality(_,{body, token}){
 
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID != 2)
+            if (validate.TypeID != 1)
                 throw isNotTrainerError;
 
             body.trainer=validate.ID;
@@ -134,7 +134,7 @@ const resolvers = {
 
         async deleteProfileUser(_,{token}){
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID != 1)
+            if (validate.TypeID != 2)
                 throw isNotTrainerError;
             
             const response = await Profile.deleteProfileUser(validate.ID);
@@ -142,7 +142,7 @@ const resolvers = {
         },
         async deleteProfileTrainer(_,{token}){
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID != 2)
+            if (validate.TypeID != 1)
                 throw isNotTrainerError;
             
             const response = await Profile.deleteProfileTrainer(validate.ID);
@@ -154,7 +154,7 @@ const resolvers = {
         },
         async deleteProfileDegree(_,{idDegree, token}){
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID != 2)
+            if (validate.TypeID != 1)
                 throw isNotTrainerError;
 
             const response = await Profile.deleteProfileDegree(idDegree);
@@ -162,7 +162,7 @@ const resolvers = {
         },
         async deleteProfileTrainerSpeciality(_,{idSpeciality, token}){
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID != 2)
+            if (validate.TypeID != 1)
                 throw isNotTrainerError;
 
             const response = await Profile.deleteProfileTrainerSpeciality(validate.ID,idSpeciality);
@@ -172,7 +172,7 @@ const resolvers = {
 
         async updateProfileUser(_,{body, token}){
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID != 1)
+            if (validate.TypeID != 2)
                 throw isNotUserError;
 
             body.user_id=validate.ID;
@@ -182,7 +182,7 @@ const resolvers = {
 
         async updateProfileTrainer(_,{body, token}){
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID != 2)
+            if (validate.TypeID != 1)
                 throw isNotTrainerError;
 
             body.trainer_id=validate.ID;
@@ -192,7 +192,7 @@ const resolvers = {
 
         async updateProfileDegree(_,{body, token}){
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID != 2)
+            if (validate.TypeID != 1)
                 throw isNotTrainerError;
 
             body.trainer=validate.ID;

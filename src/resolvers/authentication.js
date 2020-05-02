@@ -44,7 +44,15 @@ const resolvers = {
         async authVerifyAcount(_, { email, vcode }) {
             const response = await authVerifyAcount(email, vcode);
             return response;
-        }
+        },
+        async webValidateAuthToken(_, { token }) {
+            const response = await authValidateAuthToken(token);
+            return response;
+        },
+        async webAuthentication(_, { email, password }) {
+            const response = await authAuthentication(email, password);
+            return response;
+        },
     }
 }
 

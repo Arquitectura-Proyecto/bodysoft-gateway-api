@@ -18,7 +18,7 @@ const IsDateright=(date)=>{
         if(/^(04|06|09|11)?$/.test(month)){
             correct = /^(20[0-9][0-9])-(0[0-9]|1[0-2])-([0-2][0-9]|30)?$/.test(date); 
         }
-        if (month==="02"){
+        if (month=="02"){
             correct = /^(20[0-9][0-9])-(0[0-9]|1[0-2])-([0-2][0-8])?$/.test(date); 
         }
     }
@@ -39,7 +39,7 @@ CREATE
 export const registerSchedule = async (schedule, Type) => {
     try {
 
-        if(Type===2){
+        if(Type==2){
             const error = {
                 status: FORBIDDEN,
                 data: "Solo disponible para entrenadores"
@@ -58,7 +58,7 @@ export const registerSchedule = async (schedule, Type) => {
             }
             else{
         const response = await axios.post(uriSession + '/schedule/create',schedule);
-        return response.data;
+        return response;
             }
     } catch (error) {
         if(error.response!=null){
@@ -79,7 +79,7 @@ DELETE
 export const deleteSchedule = async (ChageState, Type) => {
     try {
         
-        if(Type===2){
+        if(Type==2){
             const error = {
                 status: FORBIDDEN,
                 data: "Solo disponible para entrenadores"
@@ -90,7 +90,7 @@ export const deleteSchedule = async (ChageState, Type) => {
         else{
 
         const response = await axios.delete(uriSession + '/schedule/delete',{ data: ChageState});
-        return response.status;
+        return response;
         }
     } catch (error) {
         if(error.response!=null){
@@ -107,7 +107,7 @@ PUT
 */
 export const setAdate = async (ChageState, Type) => {
     try {
-        if(Type===1){
+        if(Type==1){
             const error = {
                 status: FORBIDDEN,
                 data: "Solo disponible para usuarios"
@@ -118,7 +118,7 @@ export const setAdate = async (ChageState, Type) => {
         else{
 
         const response = await axios.put(uriSession + '/set-a-date',ChageState);
-        return response.status;
+        return response;
         }
     } catch (error) {
         if(error.response!=null){
@@ -133,7 +133,7 @@ export const setAdate = async (ChageState, Type) => {
 export const calcelUser = async (ChageState) => {
     try {
         const response = await axios.put(uriSession + '/cancel/user',ChageState);
-        return response.status;
+        return response;
     } catch (error) {
         const err = errorManager(error.response)
         throw new Error(err);
@@ -143,7 +143,7 @@ export const calcelUser = async (ChageState) => {
 export const calcelCoach = async (ChageState) => {
     try {
         const response = await axios.put(uriSession + '/cancel/coach',ChageState);
-        return response.status;
+        return response;
     } catch (error) {
         const err = errorManager(error.response)
         throw new Error(err);
@@ -156,7 +156,7 @@ GET
 export const getAllbyIdCoach = async (idCoach) => {
     try {
         const response = await axios.get(uriSession + '/get-by-idCoach/' + idCoach);
-        return response.data;
+        return response;
     } catch (error) {
         const err = errorManager(error.response);
         throw new Error(err);
@@ -164,8 +164,9 @@ export const getAllbyIdCoach = async (idCoach) => {
 }
 export const getAllbyCoachCurrent = async (idCoach) => {
     try {
-        const response = await axios.get(uriSession + '/get-by-idCoach/Current/' + idCoach);
-        return response.data;
+        +`${idOwner}`
+        const response = await axios.get(uriSession + '/get-by-idCoach/Current/' + `${idCoach}`);
+        return response;
     } catch (error) {
         const err = errorManager(error.response);
         throw new Error(err);
@@ -173,8 +174,8 @@ export const getAllbyCoachCurrent = async (idCoach) => {
 }
 export const getAllbyCoachAvaible = async (idCoach) => {
     try {
-        const response = await axios.get(uriSession + '/get-by-idCoach/Avaible/' + idCoach);
-        return response.data;
+        const response = await axios.get(uriSession + '/get-by-idCoach/Avaible/' + `${idCoach}`);
+        return response;
     } catch (error) {
         const err = errorManager(error.response);
         throw new Error(err);
@@ -183,8 +184,8 @@ export const getAllbyCoachAvaible = async (idCoach) => {
 
 export const getAllbyIdUser = async (idUser) => {
     try {
-        const response = await axios.get(uriSession + '/get-by-idUser/' + idUser);
-        return response.data;
+        const response = await axios.get(uriSession + '/get-by-idUser/' + `${idUser}`);
+        return response;
     } catch (error) {
         const err = errorManager(error.response);
         throw new Error(err);
@@ -192,17 +193,17 @@ export const getAllbyIdUser = async (idUser) => {
 }
 export const getAllbyUserCurrent = async (idUser) => {
     try {
-        const response = await axios.get(uriSession + '/get-by-idUser/Current/' + idUser);
-        return response.data;
+        const response = await axios.get(uriSession + '/get-by-idUser/Current/' + `${idUser}`);
+        return response;
     } catch (error) {
         const err = errorManager(error.response);
         throw new Error(err);
     }
 }
-export const getbyIdSchedule = async (idUser) => {
+export const getbyIdSchedule = async (idSchedule) => {
     try {
-        const response = await axios.get(uriSession + '/get-by-idSchedule/' + idUser);
-        return response.data;
+        const response = await axios.get(uriSession + '/get-by-idSchedule/' + `${idSchedule}`);
+        return response;
     } catch (error) {
         const err = errorManager(error.response);
         throw new Error(err);

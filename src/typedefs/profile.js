@@ -1,7 +1,7 @@
 export const queries = `
 profileUsers:[profileUser]
 profileTrainers:[profileTrainer]
-profileDegreesByTrainers(idTrainer:ID!):[profileDegree]
+profileDegreesByTrainers(token:String!):[profileDegree]
 profileSpecialities:[profileSpeciality]
 profileTrainersBySpeciality(idSpeciality:ID!):[profileTrainer]
 profileUser(token:String!):profileUser

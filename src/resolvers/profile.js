@@ -24,8 +24,11 @@ const resolvers = {
             const response = await Profile.getProfileTrainers();
             return response;
         },
-        async profileDegreesByTrainers(_, {idTrainer}){
-            const response = await Profile.getDegreesByTrainers(idTrainer);
+        async profileDegreesByTrainers(_, {token}){
+	    const validate = await Auth.authValidateAuthToken(token);
+            if (validate.TypeID != 1)
+                throw isNotTrainerError;
+            const response = await Profile.getDegreesByTrainers(validate.ID);
             return response;
         },
         async profileSpecialities(_){

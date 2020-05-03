@@ -72,7 +72,7 @@ const resolvers = {
        
         async profileToAddSpecialitities(_,{token}){
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID !=2){
+            if (validate.TypeID !=1){
                 throw isNotTrainerError;
             }
 

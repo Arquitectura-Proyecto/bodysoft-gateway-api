@@ -70,7 +70,7 @@ id:ID!,
 idUser:Int!,
 routine:Routine!,
 status:Status!,
-qualified:Boolean!
+quailified:Boolean!
 }
 input RegisterRoutinePOJO{
 

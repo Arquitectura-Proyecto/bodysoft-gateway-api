@@ -21,7 +21,7 @@ const errorManager=(statusCode)=>{
             return CONFLICT_ERROR;
             break;
         default:
-            return new Error(statusCode+ "ERROR NO IDENTIFICADO");
+            return new Error(statusCode+ " ERROR NO IDENTIFICADO");
     }
 
 }
@@ -32,7 +32,7 @@ export const createRoutine = async (newRoutine) => {
         return response;
     } catch (error) {
 
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
 
     }
 };
@@ -43,7 +43,7 @@ export const getRoutineByIdOwner=async (idOwner)=>{
         return response;
     } catch (error) {
 
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 };
 export const updateRoutine=async (idRoutine,routine)=>{
@@ -53,7 +53,7 @@ export const updateRoutine=async (idRoutine,routine)=>{
         return response;
     } catch (error) {
 
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 
 
@@ -65,7 +65,7 @@ export const getAllRoutines=async ()=>{
         return response;
     } catch (error) {
 
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 };
 export const getRoutineByIdType=async(idType)=>{
@@ -75,7 +75,7 @@ export const getRoutineByIdType=async(idType)=>{
         return response;
     } catch (error) {
 
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 };
 export const rateRoutine=async(idRoutine, idUser,raiting)=>{
@@ -85,7 +85,7 @@ export const rateRoutine=async(idRoutine, idUser,raiting)=>{
         return response;
     } catch (error) {
 
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 };
 export const createRequest=async(idRoutine,idUser)=>{
@@ -94,7 +94,7 @@ export const createRequest=async(idRoutine,idUser)=>{
         return response;
 
     }catch(error){
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 };
 export const deleteRequest=async(idRequest)=>{
@@ -103,7 +103,7 @@ export const deleteRequest=async(idRequest)=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 
 };
@@ -114,7 +114,7 @@ export const getRequestsByIdRoutine=async(idRoutine)=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 
 };
@@ -124,7 +124,7 @@ export const registerResource=async(idRoutine,resource)=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 
 };
@@ -135,7 +135,7 @@ export const getResourcesByIdRoutine=async(idRoutine,idRequester)=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 
 };
@@ -145,7 +145,7 @@ export const updaterResource=async(idResource,resource)=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 
 };
@@ -156,7 +156,7 @@ export const deleteResource=async(idResource,idOwner)=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 
 };
@@ -166,7 +166,7 @@ export const getUserRoutinesAvailableByUser=async(idUser)=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 
 };
@@ -176,7 +176,7 @@ export const registerUserRoutine=async(userRoutine)=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 
 };
@@ -186,7 +186,7 @@ export const changeStatusUserRoutine=async(idRoutine,idUser,idStatus)=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 
 };
@@ -196,7 +196,7 @@ export const getUserRoutineByIdUser=async(idUser)=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 
 };
@@ -206,7 +206,7 @@ export const getAllStatus=async ()=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 };
 export const getAllTypeRoutine=async ()=>{
@@ -215,7 +215,7 @@ export const getAllTypeRoutine=async ()=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 };
 export const getAllTypeResource=async()=>{
@@ -224,6 +224,6 @@ export const getAllTypeResource=async()=>{
         return response;
 
     }catch (error) {
-        throw errorManager(error.response.statusCode);
+        throw errorManager(error.response.status);
     }
 };

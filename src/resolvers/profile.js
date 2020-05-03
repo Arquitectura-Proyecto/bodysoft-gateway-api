@@ -59,6 +59,11 @@ const resolvers = {
             return response;
         },
 
+	async profileTrainerById(_,{idTrainer}){
+            const response = await Profile.getProfileTrainer(idTrainer);
+            return response;
+        },
+
         async profileLoad(_,{token}){
             const validate = await Auth.authValidateAuthToken(token);
             if (validate.TypeID ==1){
@@ -72,7 +77,7 @@ const resolvers = {
        
         async profileToAddSpecialitities(_,{token}){
             const validate = await Auth.authValidateAuthToken(token);
-            if (validate.TypeID !=2){
+            if (validate.TypeID !=1){
                 throw isNotTrainerError;
             }
 

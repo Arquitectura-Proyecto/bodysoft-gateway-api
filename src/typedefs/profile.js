@@ -6,6 +6,7 @@ profileSpecialities:[profileSpeciality]
 profileTrainersBySpeciality(idSpeciality:ID!):[profileTrainer]
 profileUser(token:String!):profileUser
 profileTrainer(token:String!):profileTrainer
+profileTrainerById(idTrainer:ID!):profileTrainer
 
 
 profileLoad(token:String!):profileLoad

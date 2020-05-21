@@ -1,5 +1,5 @@
 
-export const host= process.env.ROUTINE_HOST||'http://localhost:8080/routine-ms'
+export const host= process.env.ROUTINE_HOST||'https://localhost:8443/routine-ms'
 export const uriRegisterRoutine =host+"/register/routine"
 export const uriGetRoutineByIdOwner = host+"/routine/byIdOwner/"
 export const uriUpdateRoutine= host+"/routine/update/"

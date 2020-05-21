@@ -9,6 +9,10 @@ const CONFLICT_MESSAGE="LA PETICION REALIZADA TIENE INCONSISTENCIAS, INTENTALO D
 const UNAUTHORIZED_ERROR=new Error(UNAUTHORIZED+" "+UNAUTHORIZED_MESSAGE);
 const BAD_REQUEST_ERROR=new Error(BAD_REQUEST+" "+BAD_REQUEST_MESSAGE);
 const CONFLICT_ERROR=new Error(CONFLICT+" "+CONFLICT_MESSAGE);
+const https = require('https');
+const agent = new https.Agent({
+    rejectUnauthorized: false
+});
 const errorManager=(statusCode)=>{
     switch (statusCode) {
         case UNAUTHORIZED:
@@ -27,7 +31,7 @@ const errorManager=(statusCode)=>{
 }
 export const createRoutine = async (newRoutine) => {
     try {
-        const response = await axios.post(RoutineUris.uriRegisterRoutine,newRoutine);
+        const response = await axios.post(RoutineUris.uriRegisterRoutine,newRoutine,{httpsAgent: agent});
 
         return response;
     } catch (error) {
@@ -38,7 +42,7 @@ export const createRoutine = async (newRoutine) => {
 };
 export const getRoutineByIdOwner=async (idOwner)=>{
     try {
-        const response = await axios.get(RoutineUris.uriGetRoutineByIdOwner+`${idOwner}`);
+        const response = await axios.get(RoutineUris.uriGetRoutineByIdOwner+`${idOwner}`,{httpsAgent: agent});
 
         return response;
     } catch (error) {
@@ -48,7 +52,7 @@ export const getRoutineByIdOwner=async (idOwner)=>{
 };
 export const updateRoutine=async (idRoutine,routine)=>{
     try {
-        const response = await axios.put(RoutineUris.uriUpdateRoutine+`${idRoutine}`,routine);
+        const response = await axios.put(RoutineUris.uriUpdateRoutine+`${idRoutine}`,routine,{httpsAgent: agent});
 
         return response;
     } catch (error) {
@@ -60,17 +64,17 @@ export const updateRoutine=async (idRoutine,routine)=>{
 };
 export const getAllRoutines=async ()=>{
     try {
-        const response = await axios.get(RoutineUris.uriGetAllRoutines);
+        const response = await axios.get(RoutineUris.uriGetAllRoutines,{httpsAgent: agent});
 
         return response;
     } catch (error) {
-
+        console.log(error);
         throw errorManager(error.response.status);
     }
 };
 export const getRoutineByIdType=async(idType)=>{
     try {
-        const response = await axios.get(RoutineUris.uriGetRoutineByType+`${idType}`);
+        const response = await axios.get(RoutineUris.uriGetRoutineByType+`${idType}`,{httpsAgent: agent});
 
         return response;
     } catch (error) {
@@ -80,7 +84,7 @@ export const getRoutineByIdType=async(idType)=>{
 };
 export const rateRoutine=async(idRoutine, idUser,raiting)=>{
     try {
-        const response = await axios.put(RoutineUris.uriRateRoutine+`${idRoutine}   `,{raiting:raiting,idUser:idUser});
+        const response = await axios.put(RoutineUris.uriRateRoutine+`${idRoutine}   `,{raiting:raiting,idUser:idUser},{httpsAgent: agent});
 
         return response;
     } catch (error) {
@@ -90,7 +94,7 @@ export const rateRoutine=async(idRoutine, idUser,raiting)=>{
 };
 export const createRequest=async(idRoutine,idUser)=>{
     try{
-        const response = await axios.post(RoutineUris.uriRegisterRequest,{idRoutine:idRoutine,idUser:idUser});
+        const response = await axios.post(RoutineUris.uriRegisterRequest,{idRoutine:idRoutine,idUser:idUser},{httpsAgent: agent});
         return response;
 
     }catch(error){
@@ -99,7 +103,7 @@ export const createRequest=async(idRoutine,idUser)=>{
 };
 export const deleteRequest=async(idRequest)=>{
     try{
-        const response = await axios.delete(RoutineUris.uriDeleteRequest+`${idRequest}`);
+        const response = await axios.delete(RoutineUris.uriDeleteRequest+`${idRequest}`,{httpsAgent: agent});
         return response;
 
     }catch (error) {
@@ -110,7 +114,7 @@ export const deleteRequest=async(idRequest)=>{
 
 export const getRequestsByIdRoutine=async(idRoutine)=>{
     try{
-        const response = await axios.get(RoutineUris.uriGetRequestByRoutine+`${idRoutine}`);
+        const response = await axios.get(RoutineUris.uriGetRequestByRoutine+`${idRoutine}`,{httpsAgent: agent});
         return response;
 
     }catch (error) {
@@ -120,7 +124,7 @@ export const getRequestsByIdRoutine=async(idRoutine)=>{
 };
 export const registerResource=async(idRoutine,resource)=>{
     try{
-        const response = await axios.post(RoutineUris.uriRegisterResource+`${idRoutine}`,resource);
+        const response = await axios.post(RoutineUris.uriRegisterResource+`${idRoutine}`,resource,{httpsAgent: agent});
         return response;
 
     }catch (error) {
@@ -131,7 +135,7 @@ export const registerResource=async(idRoutine,resource)=>{
 
 export const getResourcesByIdRoutine=async(idRoutine,idRequester)=>{
     try{
-        const response = await axios.post(RoutineUris.uriGetResourcesByRoutine+`${idRoutine}`,{idRequester:idRequester});
+        const response = await axios.post(RoutineUris.uriGetResourcesByRoutine+`${idRoutine}`,{idRequester:idRequester},{httpsAgent: agent});
         return response;
 
     }catch (error) {
@@ -141,7 +145,7 @@ export const getResourcesByIdRoutine=async(idRoutine,idRequester)=>{
 };
 export const updaterResource=async(idResource,resource)=>{
     try{
-        const response = await axios.put(RoutineUris.uriUpdateResource+`${idResource}`,resource);
+        const response = await axios.put(RoutineUris.uriUpdateResource+`${idResource}`,resource,{httpsAgent: agent});
         return response;
 
     }catch (error) {
@@ -151,7 +155,7 @@ export const updaterResource=async(idResource,resource)=>{
 };
 export const deleteResource=async(idResource,idOwner)=>{
     try{
-        const response = await axios.delete(RoutineUris.uriDeleteResource+`${idResource}/${idOwner}`);
+        const response = await axios.delete(RoutineUris.uriDeleteResource+`${idResource}/${idOwner}`,{httpsAgent: agent});
 
         return response;
 
@@ -162,7 +166,7 @@ export const deleteResource=async(idResource,idOwner)=>{
 };
 export const getUserRoutinesAvailableByUser=async(idUser)=>{
     try{
-        const response = await axios.get(RoutineUris.uriGetUserRoutineAvailable+`${idUser}`);
+        const response = await axios.get(RoutineUris.uriGetUserRoutineAvailable+`${idUser}`,{httpsAgent: agent});
         return response;
 
     }catch (error) {
@@ -172,7 +176,7 @@ export const getUserRoutinesAvailableByUser=async(idUser)=>{
 };
 export const registerUserRoutine=async(userRoutine)=>{
     try{
-        const response = await axios.post(RoutineUris.uriRegisterUserRoutine,userRoutine);
+        const response = await axios.post(RoutineUris.uriRegisterUserRoutine,userRoutine,{httpsAgent: agent});
         return response;
 
     }catch (error) {
@@ -182,7 +186,7 @@ export const registerUserRoutine=async(userRoutine)=>{
 };
 export const changeStatusUserRoutine=async(idRoutine,idUser,idStatus)=>{
     try{
-        const response = await axios.put(RoutineUris.uriChangeStatusUserRoutine+`${idRoutine}`,{idUser:idUser,idStatus:idStatus});
+        const response = await axios.put(RoutineUris.uriChangeStatusUserRoutine+`${idRoutine}`,{idUser:idUser,idStatus:idStatus},{httpsAgent: agent});
         return response;
 
     }catch (error) {
@@ -192,7 +196,7 @@ export const changeStatusUserRoutine=async(idRoutine,idUser,idStatus)=>{
 };
 export const getUserRoutineByIdUser=async(idUser)=>{
     try{
-        const response = await axios.get(RoutineUris.uriGetUserRoutineByUser+`${idUser}`);
+        const response = await axios.get(RoutineUris.uriGetUserRoutineByUser+`${idUser}`,{httpsAgent: agent});
         return response;
 
     }catch (error) {
@@ -202,7 +206,7 @@ export const getUserRoutineByIdUser=async(idUser)=>{
 };
 export const getAllStatus=async ()=>{
     try{
-        const response = await axios.get(RoutineUris.uriGetAllStatus);
+        const response = await axios.get(RoutineUris.uriGetAllStatus,{httpsAgent: agent});
         return response;
 
     }catch (error) {
@@ -211,7 +215,7 @@ export const getAllStatus=async ()=>{
 };
 export const getAllTypeRoutine=async ()=>{
     try{
-        const response = await axios.get(RoutineUris.uriGetAllTypeRoutine);
+        const response = await axios.get(RoutineUris.uriGetAllTypeRoutine,{httpsAgent: agent});
         return response;
 
     }catch (error) {
@@ -220,7 +224,7 @@ export const getAllTypeRoutine=async ()=>{
 };
 export const getAllTypeResource=async()=>{
     try{
-        const response = await axios.get(RoutineUris.uriGetAllTypeResource);
+        const response = await axios.get(RoutineUris.uriGetAllTypeResource,{httpsAgent: agent});
         return response;
 
     }catch (error) {

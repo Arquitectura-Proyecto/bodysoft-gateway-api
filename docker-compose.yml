@@ -6,10 +6,8 @@ services:
         build: .
         environment: 
             PORT: '3800'
-            CHAT_HOST: 'https://host.docker.internal:4500'
             PROFILE_HOST: 'http://host.docker.internal:8000'
             AUTHENTICATION_HOST: 'http://host.docker.internal:4002'
-            ROUTINE_HOST: 'http://host.docker.internal:8080/routine-ms'
             SESSION_HOST: 'http://host.docker.internal:4001'
         ports: 
             - '3800:3800'
